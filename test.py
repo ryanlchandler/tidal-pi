@@ -1,17 +1,19 @@
-import RPi.GPIO as GPIO
-import time
+import datetime
+from tide_forecast import *
+from tide_gpio import *
 
-GPIO.setmode(GPIO.BOARD)
-GPIO.setwarnings(False)
+begin_date = (datetime.date.today() - datetime.timedelta(days=1)).strftime("%m/%d/%Y")
+end_date   = (datetime.date.today() + datetime.timedelta(days=6)).strftime("%m/%d/%Y")
+updateTideForecasts(begin_date, end_date)
 
-ledPin = 12
-
-GPIO.setup(ledPin, GPIO.OUT)
-
-for i in range(5):
-	print("LED turning on.")
-	GPIO.output(ledPin, GPIO.HIGH)
-	time.sleep(0.5)
-	print("LED turning off.")
-	GPIO.output(ledPin, GPIO.LOW)
-	time.sleep(0.5)
+while(True):
+    forecast = getForecast()
+    nextTide = getNextTide(forecast)
+    prevTide = getPreviousTide(forecast)
+    print("{}  {}: {}".format(prevTide["date"], prevTide["type"], prevTide["time"]))
+    print("{}  {}: {}".format(nextTide["date"], nextTide["type"], nextTide["time"]))
+    print("time remaining:  {} mins".format(getMinutesBeforeTide(nextTide)))
+    print("percent high tide:  {}%".format(getCurrentPercentOfHighTide(prevTide, nextTide)))
+    signalTide(nextTide)
+    print("----------------------------")
+    time.sleep(30)

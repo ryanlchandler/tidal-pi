@@ -1,11 +1,12 @@
 import json
 import requests
 import datetime
+import time
 from config import *
 from tide import *
 
 def updateTideForecasts(begin_date, end_date):
-    predictions = _getTidePredictions(begin_date, end_date)
+    predictions = _getTideForecast(begin_date, end_date)
     tides = {}
     for prediction in predictions:
         date = datetime.datetime.strptime(prediction["t"], "%Y-%m-%d %H:%M")
@@ -21,7 +22,7 @@ def updateTideForecasts(begin_date, end_date):
 
     _writeForecast(tides)
 
-def _getTidePredictions(begin_date, end_date):
+def _getTideForecast(begin_date, end_date):
     product = "predictions"
     format = "json"
     units = "english"
@@ -36,13 +37,12 @@ def _writeForecast(forecast):
     with open(FORECAST_FILE, 'w+') as forecastFile:
         forecastFile.write(json.dumps(forecast))
 
-def _readForecast():
+def getForecast(dayOfWeek=None):
     with open(FORECAST_FILE) as forecastFile:
-        return json.load(forecastFile)
-
-def getForecast(dayOfWeek):
-    tides = _readForecast()
-    return tides[str(dayOfWeek)]
+        forecast = json.load(forecastFile)
+        if dayOfWeek != None:
+            return forecast[str(dayOfWeek)]
+        return forecast
 
 def getTodaysForecast():
     return getForecast(str(datetime.date.today().weekday()))
@@ -74,17 +74,4 @@ def _printForecast(tides):
         _printTide(tide)
 
 def _printTide(tide):
-    print("{}: {}".format(tide["type"], tide["time"]))
-
-# begin_date = datetime.date.today().strftime("%m/%d/%Y")
-# end_date = (datetime.date.today() + datetime.timedelta(days=6)).strftime("%m/%d/%Y")
-# updateTideForecasts(begin_date, end_date)
-
-# _printForecast(getMonForecast())
-# _printForecast(getTueForecast())
-# _printForecast(getWedForecast())
-
-
-_printTide(getNextTide(getTodaysForecast()))
-
-
+    print("{}: {}".format(tide['type'], tide['time']))
