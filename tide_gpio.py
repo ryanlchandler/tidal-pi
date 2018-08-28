@@ -15,7 +15,7 @@ def _flashLight(ledPin, label):
     for i in range(5):
         print("{} LED on".format(label))
         GPIO.output(ledPin, GPIO.HIGH)
-        time.sleep(3)
+        time.sleep(2)
         print("{} LED off".format(label))
         GPIO.output(ledPin, GPIO.LOW)
-        time.sleep(3)
+        time.sleep(1)

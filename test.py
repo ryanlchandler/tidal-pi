@@ -16,4 +16,4 @@ while(True):
     print("percent high tide:  {}%".format(getCurrentPercentOfHighTide(prevTide, nextTide)))
     signalTide(nextTide)
     print("----------------------------")
-    time.sleep(30)
+    time.sleep(3)
