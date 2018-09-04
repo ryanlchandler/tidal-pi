@@ -11,14 +11,14 @@ while(True):
     forecast = getForecast()
     nextTide = getNextTide(forecast)
     prevTide = getPreviousTide(forecast)
-    setLowTideClock(getNextTide(forecast, None, "L"))
-    setHighTideClock(getNextTide(forecast, None, "H"))
-
     currentPercentOfHighTide = getCurrentPercentOfHighTide(prevTide, nextTide)
     print("{}  {}: {}".format(prevTide["date"], prevTide["type"], prevTide["time"]))
     print("{}  {}: {}".format(nextTide["date"], nextTide["type"], nextTide["time"]))
     print("time remaining:  {} mins".format(getMinutesBeforeTide(nextTide)))
     print("percent high tide:  {}%".format(currentPercentOfHighTide))
-    signalTide(nextTide, currentPercentOfHighTide)
     print("----------------------------")
+
+    setLowTideClock(getNextTide(forecast, None, "L"))
+    setHighTideClock(getNextTide(forecast, None, "H"))
+    signalTide(nextTide, currentPercentOfHighTide)
     time.sleep(1)
