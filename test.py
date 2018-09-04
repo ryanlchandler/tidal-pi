@@ -1,5 +1,6 @@
 import datetime
 from tide_forecast import *
+from tide_clock import *
 from tide_gpio import *
 
 begin_date = (datetime.date.today() - datetime.timedelta(days=1)).strftime("%m/%d/%Y")
@@ -10,6 +11,9 @@ while(True):
     forecast = getForecast()
     nextTide = getNextTide(forecast)
     prevTide = getPreviousTide(forecast)
+    setLowTideClock(getNextTide(forecast, None, "L"))
+    setHighTideClock(getNextTide(forecast, None, "H"))
+
     currentPercentOfHighTide = getCurrentPercentOfHighTide(prevTide, nextTide)
     print("{}  {}: {}".format(prevTide["date"], prevTide["type"], prevTide["time"]))
     print("{}  {}: {}".format(nextTide["date"], nextTide["type"], nextTide["time"]))

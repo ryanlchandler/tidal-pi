@@ -20,14 +20,15 @@ def _getAllTides(forecast):
             allTides.append(tide)
     return allTides
 
-def getNextTide(forecast, predicateDateTime = None):
+def getNextTide(forecast, predicateDateTime = None, predicateType = None):
     if(predicateDateTime == None):
         predicateDateTime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
     allTides = sortTides(_getAllTides(forecast))
     for tide in allTides:
         if tide["dateTimeStr"] > predicateDateTime:
-            return tide
+            if(predicateType == None or predicateType == tide["type"]):
+                return tide
     return None
 
 def getPreviousTide(forecast, predicateDateTime = None):
