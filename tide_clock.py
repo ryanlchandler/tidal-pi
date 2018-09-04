@@ -4,7 +4,7 @@ from Adafruit_LED_Backpack import SevenSegment
 highTideClock = SevenSegment.SevenSegment(address=0x70)
 highTideClock.begin()
 
-lowTideClock = SevenSegment.SevenSegment(address=0x70)
+lowTideClock = SevenSegment.SevenSegment(address=0x71)
 lowTideClock.begin()
 
 def setLowTideClock(tide):
