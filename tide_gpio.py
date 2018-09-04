@@ -71,21 +71,25 @@ def signalTide(tide, currentPercentOfHighTide):
         signalLowTide(tide, currentPercentOfHighTide)
 
 def _signalLevel0(tide, currentPercentOfHighTide):
+    print("signal level 0")
     _turnOffAllLights()
     _turnOnLight(LIGHT_0_IDX, IN_TIDE_COLOR)
 
 def _signalLevel1(tide, currentPercentOfHighTide):
+    print("signal level 1")
     _turnOffAllLights()
     _turnOnLight(LIGHT_0_IDX, IN_TIDE_COLOR)
     _flashLight(LIGHT_1_IDX, IN_TIDE_COLOR)
 
 def _signalLevel2(tide, currentPercentOfHighTide):
+    print("signal level 2")
     _turnOffAllLights()
     _turnOnLight(LIGHT_0_IDX, IN_TIDE_COLOR)
     _turnOnLight(LIGHT_1_IDX, IN_TIDE_COLOR)
     _flashLight(LIGHT_2_IDX, IN_TIDE_COLOR)
 
 def _signalLevel3(tide, currentPercentOfHighTide):
+    print("signal level 3")
     _turnOffAllLights()
     _turnOnLight(LIGHT_0_IDX, IN_TIDE_COLOR)
     _turnOnLight(LIGHT_1_IDX, IN_TIDE_COLOR)
@@ -93,23 +97,27 @@ def _signalLevel3(tide, currentPercentOfHighTide):
     _flashLight(LIGHT_3_IDX, IN_TIDE_COLOR)
 
 def _signalLevel4(tide, currentPercentOfHighTide):
+    print("signal level 4")
     _turnOffAllLights()
     _turnOnLight(LIGHT_4_IDX, IN_TIDE_COLOR)
     _turnOnLight(LIGHT_5_IDX, IN_TIDE_COLOR)
     _turnOnLight(LIGHT_6_IDX, IN_TIDE_COLOR)
 
 def _signalLevel5(tide, currentPercentOfHighTide):
+    print("signal level 5")
     _turnOffAllLights()
     _turnOnLight(LIGHT_6_IDX, OUT_TIDE_COLOR)
     _flashLight(LIGHT_7_IDX, OUT_TIDE_COLOR)
 
 def _signalLevel6(tide, currentPercentOfHighTide):
+    print("signal level 6")
     _turnOffAllLights()
     _turnOnLight(LIGHT_6_IDX, OUT_TIDE_COLOR)
     _turnOnLight(LIGHT_7_IDX, OUT_TIDE_COLOR)
     _flashLight(LIGHT_8_IDX, OUT_TIDE_COLOR)
 
 def _signalLevel7(tide, currentPercentOfHighTide):
+    print("signal level 7")
     _turnOffAllLights()
     _turnOnLight(LIGHT_6_IDX, OUT_TIDE_COLOR)
     _turnOnLight(LIGHT_7_IDX, OUT_TIDE_COLOR)
@@ -117,6 +125,7 @@ def _signalLevel7(tide, currentPercentOfHighTide):
     _flashLight(LIGHT_9_IDX, OUT_TIDE_COLOR)
 
 def _signalLevel8(tide, currentPercentOfHighTide):
+    print("signal level 8")
     _turnOffAllLights()
     _turnOnLight(LIGHT_6_IDX, OUT_TIDE_COLOR)
     _turnOnLight(LIGHT_7_IDX, OUT_TIDE_COLOR)
@@ -125,6 +134,7 @@ def _signalLevel8(tide, currentPercentOfHighTide):
     _flashLight(LIGHT_0_IDX, OUT_TIDE_COLOR)
 
 def _signalLevel9(tide, currentPercentOfHighTide):
+    print("signal level 9")
     _turnOffAllLights()
     _turnOnLight(LIGHT_0_IDX, OUT_TIDE_COLOR)
 
