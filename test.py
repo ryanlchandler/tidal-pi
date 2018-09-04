@@ -12,7 +12,7 @@ while(True):
     nextTide = getNextTide(forecast)
     prevTide = getPreviousTide(forecast)
     setLowTideClock(getNextTide(forecast, None, "L"))
-    setHighTideClock(getNextTide(forecast, None, "H"))
+    # setHighTideClock(getNextTide(forecast, None, "H"))
 
     currentPercentOfHighTide = getCurrentPercentOfHighTide(prevTide, nextTide)
     print("{}  {}: {}".format(prevTide["date"], prevTide["type"], prevTide["time"]))
