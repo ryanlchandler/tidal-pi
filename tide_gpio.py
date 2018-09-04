@@ -99,7 +99,7 @@ def _signalLevel3(tide, currentPercentOfHighTide):
 
 def _signalLevel4(tide, currentPercentOfHighTide):
     print("signal level 4")
-    _turnOffAllLights([LIGHT_4_IDX, LIGHT_6_IDX])
+    _turnOffAllLights(LIGHT_4_IDX, LIGHT_6_IDX)
     _turnOnLight(LIGHT_4_IDX, IN_TIDE_COLOR)
     _turnOnLight(LIGHT_5_IDX, IN_TIDE_COLOR)
     _turnOnLight(LIGHT_6_IDX, IN_TIDE_COLOR)
