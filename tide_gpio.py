@@ -74,6 +74,7 @@ def _signalLevel0(tide, currentPercentOfHighTide):
     print("signal level 0")
     _turnOffAllLights(LIGHT_0_IDX, LIGHT_0_IDX)
     _turnOnLight(LIGHT_0_IDX, IN_TIDE_COLOR)
+    time.sleep(30)
 
 def _signalLevel1(tide, currentPercentOfHighTide):
     print("signal level 1")
@@ -102,6 +103,7 @@ def _signalLevel4(tide, currentPercentOfHighTide):
     _turnOnLight(LIGHT_4_IDX, IN_TIDE_COLOR)
     _turnOnLight(LIGHT_5_IDX, IN_TIDE_COLOR)
     _turnOnLight(LIGHT_6_IDX, IN_TIDE_COLOR)
+    time.sleep(30)
 
 def _signalLevel5(tide, currentPercentOfHighTide):
     print("signal level 5")
@@ -137,6 +139,7 @@ def _signalLevel9(tide, currentPercentOfHighTide):
     print("signal level 9")
     _turnOffAllLights(LIGHT_0_IDX, LIGHT_0_IDX)
     _turnOnLight(LIGHT_0_IDX, OUT_TIDE_COLOR)
+    time.sleep(30)
 
 def _turnOnLight(lightIdx, color):
     strip.setPixelColor(lightIdx, color)
