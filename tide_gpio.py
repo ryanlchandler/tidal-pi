@@ -236,13 +236,9 @@ def _turnOffLight(lightIdx):
 
 def _flashLight(lightIdx, color):
     for i in range(20):
-        strip.setBrightness(255);
+        print(color)
+
         _turnOnLight(lightIdx, color)
         time.sleep(1)
-        strip.setBrightness(195);
         # _turnOffLight(lightIdx)
-        time.sleep(.2)
-        strip.setBrightness(135);
-        time.sleep(.2)
-        strip.setBrightness(75);
-        time.sleep(.2)
+        time.sleep(.5)
