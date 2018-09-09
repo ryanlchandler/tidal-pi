@@ -43,18 +43,18 @@ LIGHT_7_IDX = 7 # 25
 LIGHT_8_IDX = 8 # low
 LIGHT_9_IDX = 9
 
-
-
-
-
 # 90 4        5        6
 # 75   3             7
 # 50     2         8
 # 25       1    9
 # 10         0
 
-
-
+def Kolor(r, g, b):
+    return {
+        "r": r,
+        "g": g,
+        "b": b
+    }
 
 OFF_COLOR = Kolor(0, 0, 0)
 IN_TIDE_COLOR = Kolor(3, 77, 203) # r g b
@@ -233,13 +233,6 @@ def _turnOffAllLights(leaveOnStart, leaveOnEnd):
 def _turnOffLight(lightIdx):
     strip.setPixelColor(lightIdx, OFF_COLOR["r"], OFF_COLOR["g"], OFF_COLOR["b"], 0)
     strip.show()
-
-def Kolor(r, g, b):
-    return {
-        "r": r,
-        "g": g,
-        "b": b
-    }
 
 def _flashLight(lightIdx, color):
     for i in range(20):
