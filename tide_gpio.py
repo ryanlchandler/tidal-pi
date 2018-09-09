@@ -78,12 +78,14 @@ def signalHighTide(currentPercentOfHighTide):
         _signalTowardH4()
     elif(greaterThan(currentPercentOfHighTide, LEVEL_H4)):
         _signalInHigh()
+    else:
+        print("no high signals found")
 
 def signalLowTide(tide, currentPercentOfHighTide):
     if(greaterThan(currentPercentOfHighTide, LEVEL_L4)):
-        _signalOutHigh(tide, currentPercentOfHighTide)
+        _signalOutHigh()
     elif(between(currentPercentOfHighTide, LEVEL_L3, LEVEL_L4)):
-        _signalTowardL3(tide, currentPercentOfHighTide)
+        _signalTowardL3()
     elif(between(currentPercentOfHighTide, LEVEL_L2, LEVEL_L3)):
         _signalTowardL2()
     elif (between(currentPercentOfHighTide, LEVEL_L1, LEVEL_L2)):
@@ -92,6 +94,8 @@ def signalLowTide(tide, currentPercentOfHighTide):
         _signalTowardL0()
     elif (lessThan(currentPercentOfHighTide, LEVEL_L0)):
         _signalOutLow()
+    else:
+        print("no low signals found")
 
 def between(currentPercentOfHighTide, min, max):
     return currentPercentOfHighTide > min and currentPercentOfHighTide <= max
