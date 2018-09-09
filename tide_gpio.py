@@ -212,7 +212,7 @@ def _signalOutLow():
     time.sleep(30)
 
 def _turnOnLight(lightIdx, color, brightness):
-    strip.setPixelColor(lightIdx, color["r"], color["g"], color["b"], brightness)
+    strip.setPixelColor(lightIdx, (brightness * color["r"] / 255), (brightness * color["g"] / 255), (brightness * color["b"] / 255))
     strip.show()
 
 def _turnOffAllLights(leaveOnStart, leaveOnEnd):
@@ -231,7 +231,7 @@ def _turnOffAllLights(leaveOnStart, leaveOnEnd):
     # _turnOffLight(LIGHT_9_IDX)
 
 def _turnOffLight(lightIdx):
-    strip.setPixelColor(lightIdx, OFF_COLOR["r"], OFF_COLOR["g"], OFF_COLOR["b"], 0)
+    strip.setPixelColor(lightIdx, OFF_COLOR["r"], OFF_COLOR["g"], OFF_COLOR["b"])
     strip.show()
 
 def _flashLight(lightIdx, color):
