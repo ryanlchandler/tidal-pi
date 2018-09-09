@@ -211,7 +211,7 @@ def _signalOutLow():
     _turnOnLight(LIGHT_0_IDX, OUT_TIDE_COLOR)
     time.sleep(30)
 
-def _turnOnLight(lightIdx, color, brightness):
+def _turnOnLight(lightIdx, color, brightness=255):
     strip.setPixelColor(lightIdx, Color((brightness * color["r"] / 255), (brightness * color["g"] / 255), (brightness * color["b"] / 255)))
     strip.show()
 
