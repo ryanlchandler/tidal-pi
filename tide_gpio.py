@@ -58,7 +58,7 @@ LIGHT_9_IDX = 9
 
 OFF_COLOR = Color(0, 0, 0)
 IN_TIDE_COLOR = Color(0, 0, 255) # r g b
-OUT_TIDE_COLOR = Color(0, 94, 255)
+OUT_TIDE_COLOR = Color(3, 77, 203)
 
 # Create NeoPixel object with appropriate configuration.
 strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT)
