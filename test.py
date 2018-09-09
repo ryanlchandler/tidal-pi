@@ -1,3 +1,4 @@
+import sys
 import datetime
 from tide_forecast import *
 from tide_clock import *
@@ -16,8 +17,10 @@ while(True):
     print("{}  {}: {}".format(nextTide["date"], nextTide["type"], nextTide["time"]))
     print("time remaining:  {} mins".format(getMinutesBeforeTide(nextTide)))
     print("percent high tide:  {}%".format(currentPercentOfHighTide))
+    sys.stdout.flush()
     setLowTideClock(getNextTide(forecast, None, "L"))
     setHighTideClock(getNextTide(forecast, None, "H"))
     signalTide(nextTide, currentPercentOfHighTide)
     print("----------------------------")
+    sys.stdout.flush()
     time.sleep(1)
