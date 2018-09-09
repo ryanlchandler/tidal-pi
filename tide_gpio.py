@@ -238,12 +238,11 @@ def _flashLight(lightIdx, color):
     for i in range(20):
         _turnOnLight(lightIdx, color, 255)
         time.sleep(1)
-        # _turnOffLight(lightIdx)
-        _turnOnLight(lightIdx, color, 200)
-        time.sleep(.2)
-        _turnOnLight(lightIdx, color, 150)
-        time.sleep(.2)
-        _turnOnLight(lightIdx, color, 100)
-        time.sleep(.2)
-        _turnOnLight(lightIdx, color, 50)
-        time.sleep(.2)
+
+        for x in range(255):
+            _turnOnLight(lightIdx, color, 255 - x)
+            time.sleep(.1)
+
+        for x in range(255):
+            _turnOnLight(lightIdx, color, x)
+            time.sleep(.1)
