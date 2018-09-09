@@ -238,5 +238,10 @@ def _flashLight(lightIdx, color):
     for i in range(20):
         _turnOnLight(lightIdx, color)
         time.sleep(1)
-        _turnOffLight(lightIdx)
-        time.sleep(.5)
+        strip.setBrightness(50);
+        # _turnOffLight(lightIdx)
+        time.sleep(.2)
+        strip.setBrightness(25);
+        time.sleep(.2)
+        strip.setBrightness(10);
+        time.sleep(.2)
