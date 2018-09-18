@@ -7,24 +7,28 @@ from config import *
 from tide import *
 
 def updateTideForecasts(begin_date, end_date):
-    try:
-        predictions = _getTideForecast(begin_date, end_date)
-        tides = {}
-        for prediction in predictions:
-            date = datetime.datetime.strptime(prediction["t"], "%Y-%m-%d %H:%M")
-            date_str = date.strftime("%Y-%m-%d")
-            time_str = date.strftime("%H:%M")
-            height = prediction["v"]
-            type = prediction["type"]
-            tide = newTide(date_str, time_str, type, height)
+    done = False
+    while(done == False):
+        try:
+            predictions = _getTideForecast(begin_date, end_date)
+            tides = {}
+            for prediction in predictions:
+                date = datetime.datetime.strptime(prediction["t"], "%Y-%m-%d %H:%M")
+                date_str = date.strftime("%Y-%m-%d")
+                time_str = date.strftime("%H:%M")
+                height = prediction["v"]
+                type = prediction["type"]
+                tide = newTide(date_str, time_str, type, height)
 
-            if (date.weekday() not in tides):
-                tides[date.weekday()] = []
-            tides[date.weekday()].append(tide)
+                if (date.weekday() not in tides):
+                    tides[date.weekday()] = []
+                tides[date.weekday()].append(tide)
 
-        _writeForecast(tides)
-    except:
-        print("could not update forecast", sys.exc_info()[0])
+            _writeForecast(tides)
+            done = True
+        except:
+            print("could not update forecast", sys.exc_info()[0])
+            time.sleep(5)
 
 
 
