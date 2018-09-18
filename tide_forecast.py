@@ -8,7 +8,7 @@ from tide import *
 
 def updateTideForecasts(begin_date, end_date):
     done = False
-    while(done == False):
+    while done == False:
         try:
             predictions = _getTideForecast(begin_date, end_date)
             tides = {}
@@ -29,8 +29,6 @@ def updateTideForecasts(begin_date, end_date):
         except:
             print("could not update forecast", sys.exc_info()[0])
             time.sleep(5)
-
-
 
 def _getTideForecast(begin_date, end_date):
     product = "predictions"
