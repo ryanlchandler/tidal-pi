@@ -159,7 +159,7 @@ def greaterThan(currentPercentOfHighTide, max):
     return currentPercentOfHighTide > max
 
 def _updateLights(onLights, lightColor):
-    _turnOffLight(onLights)
+    _turnOffLights(onLights)
     for lightIdx in onLights:
         _turnOnLight(lightIdx, lightColor)
     _updateStrip()
