@@ -57,10 +57,9 @@ strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT)
 strip.begin()
 
 
-
-def signalTide(currentPercentOfHighTide, tideDirection):
+def signalTide(tide, currentPercentOfHighTide):
     lightColor = OUT_TIDE_COLOR
-    if tideDirection == TIDE_IN:
+    if (tide["type"] == "H"):
         lightColor = IN_TIDE_COLOR
 
     if (lessThan(currentPercentOfHighTide, LEVEL_0)):
