@@ -62,6 +62,7 @@ strip.begin()
 def _createHighLevels():
     return [
 # low IN
+        TideLevel("low tide", "H", 0,  [LIGHT_0_IDX]),
         TideLevel("level 13", "H", 13, [LIGHT_0_IDX], [LIGHT_1_IDX, LIGHT_9_IDX]),
         TideLevel("level 25", "H", 25, [LIGHT_0_IDX, LIGHT_1_IDX, LIGHT_9_IDX]),
         TideLevel("level 38", "H", 38, [LIGHT_0_IDX, LIGHT_1_IDX, LIGHT_9_IDX], [LIGHT_2_IDX, LIGHT_8_IDX]),
@@ -77,7 +78,7 @@ def _createHighLevels():
 def _createLowLevels():
     return [
 # high OUT
-
+        TideLevel("high tide","L",100, [LIGHT_0_IDX, LIGHT_1_IDX, LIGHT_2_IDX, LIGHT_3_IDX, LIGHT_4_IDX, LIGHT_5_IDX, LIGHT_6_IDX, LIGHT_7_IDX, LIGHT_8_IDX, LIGHT_9_IDX]),
         TideLevel("level 95", "L", 95, [LIGHT_0_IDX, LIGHT_1_IDX, LIGHT_2_IDX, LIGHT_3_IDX, LIGHT_4_IDX, LIGHT_6_IDX, LIGHT_7_IDX, LIGHT_8_IDX, LIGHT_9_IDX], [LIGHT_4_IDX, LIGHT_6_IDX]),
         TideLevel("level 90", "L", 90, [LIGHT_0_IDX, LIGHT_1_IDX, LIGHT_2_IDX, LIGHT_3_IDX, LIGHT_7_IDX, LIGHT_8_IDX, LIGHT_9_IDX]),
         TideLevel("level 83", "L", 83, [LIGHT_0_IDX, LIGHT_1_IDX, LIGHT_2_IDX, LIGHT_8_IDX, LIGHT_9_IDX], [LIGHT_3_IDX, LIGHT_7_IDX]),
