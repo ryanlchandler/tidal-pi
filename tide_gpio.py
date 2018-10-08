@@ -159,9 +159,9 @@ def _flashLights(flashLights, color):
         for x in range(20):
             _turnOnLights(flashLights, color, 255 - (x * 10))
             _updateStrip()
-            time.sleep(.5)
+            time.sleep(.2)
 
         for x in range(20):
             _turnOnLights(flashLights, color, (x * 10))
             _updateStrip()
-            time.sleep(.5)
+            time.sleep(.2)
