@@ -104,7 +104,7 @@ def _signalInTide(currentPercentOfHighTide):
     currentLevel = None
     for level in highTideLevels:
         if level.hasMetLevel("H", currentPercentOfHighTide):
-            if currentLevel == None or currentLevel > currentLevel.getPercentOfHighTide():
+            if currentLevel == None or level.getPercentOfHighTide() > currentLevel.getPercentOfHighTide():
                 currentLevel = level
     print("signal H {}".format(currentLevel.getName()))
     _updateLights(currentLevel.getTurnOnLights(), currentLevel.getFlashLights(), lightColor)
@@ -114,7 +114,7 @@ def _signalOutTide(currentPercentOfHighTide):
     currentLevel = None
     for level in lowTideLevels:
         if level.hasMetLevel("L", currentPercentOfHighTide):
-            if currentLevel == None or currentLevel < currentLevel.getPercentOfHighTide():
+            if currentLevel == None or level.getPercentOfHighTide() < currentLevel.getPercentOfHighTide():
                 currentLevel = level
     print("signal L {}".format(currentLevel.getName()))
     _updateLights(currentLevel.getTurnOnLights(), currentLevel.getFlashLights(), lightColor)
