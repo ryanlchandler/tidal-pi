@@ -1,6 +1,7 @@
 from tide_forecast import *
 from config import *
 from neopixel import *
+from tide_level import TideLevel
 
 LED_COUNT   = 48       # Number of LED pixels.
 LED_PIN     = 18      # GPIO pin connected to the pixels (must support PWM!).
@@ -8,17 +9,18 @@ LED_FREQ_HZ = 800000  # LED signal frequency in hertz (usually 800khz)
 LED_DMA     = 5       # DMA channel to use for generating signal (try 5)
 LED_INVERT  = False   # True to invert the signal (when using NPN transistor level shift)
 
-# high lit
-LEVEL_4 = 90
-# flash 75
-LEVEL_3 = 75
-# flash 50
-LEVEL_2 = 50
-# flash 25
-LEVEL_1 = 25
-# flash low
-LEVEL_0 = 10
-# low lit
+LEVEL_100  = 100 # high lit
+LEVEL_95 = 95    # h-flash 100 or l-flash 90
+LEVEL_90 = 90    # 90 lit
+LEVEL_83 = 83    # h-flash 90 or l-flash 75
+LEVEL_75 = 75    # 75 lit
+LEVEL_63 = 63    # h-flash 75 or l-flash 50
+LEVEL_50 = 50    # 50 lit
+LEVEL_38 = 38    # h-flash 50 or l-flash 25
+LEVEL_25 = 25    # 25 lit
+LEVEL_13 = 13    # h-flash 25 or l-flash 0
+LEVEL_0 = 0      # low lit
+
 
 TIDE_OUT = "OUT"
 TIDE_IN = "IN"
@@ -57,112 +59,69 @@ strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT)
 strip.begin()
 
 
+def _createHighLevels():
+    return [
+# low IN
+        TideLevel("level 13", "H", 13, [LIGHT_0_IDX], [LIGHT_1_IDX, LIGHT_9_IDX]),
+        TideLevel("level 25", "H", 25, [LIGHT_0_IDX, LIGHT_1_IDX, LIGHT_9_IDX]),
+        TideLevel("level 38", "H", 38, [LIGHT_0_IDX, LIGHT_1_IDX, LIGHT_9_IDX], [LIGHT_2_IDX, LIGHT_8_IDX]),
+        TideLevel("level 50", "H", 50, [LIGHT_0_IDX, LIGHT_1_IDX, LIGHT_2_IDX, LIGHT_8_IDX, LIGHT_9_IDX]),
+        TideLevel("level 63", "H", 63, [LIGHT_0_IDX, LIGHT_1_IDX, LIGHT_2_IDX, LIGHT_8_IDX, LIGHT_9_IDX], [LIGHT_3_IDX, LIGHT_7_IDX]),
+        TideLevel("level 75", "H", 75, [LIGHT_0_IDX, LIGHT_1_IDX, LIGHT_2_IDX, LIGHT_3_IDX, LIGHT_7_IDX, LIGHT_8_IDX, LIGHT_9_IDX]),
+        TideLevel("level 83", "H", 83, [LIGHT_0_IDX, LIGHT_1_IDX, LIGHT_2_IDX, LIGHT_3_IDX, LIGHT_7_IDX, LIGHT_8_IDX, LIGHT_9_IDX], [LIGHT_4_IDX, LIGHT_6_IDX]),
+        TideLevel("level 90", "H", 90, [LIGHT_0_IDX, LIGHT_1_IDX, LIGHT_2_IDX, LIGHT_3_IDX, LIGHT_4_IDX, LIGHT_6_IDX, LIGHT_7_IDX, LIGHT_8_IDX, LIGHT_9_IDX], [LIGHT_5_IDX]),
+        TideLevel("level 95", "H", 95, [LIGHT_0_IDX, LIGHT_1_IDX, LIGHT_2_IDX, LIGHT_3_IDX, LIGHT_4_IDX, LIGHT_5_IDX, LIGHT_6_IDX, LIGHT_7_IDX, LIGHT_8_IDX, LIGHT_9_IDX]),
+# high IN
+    ]
+
+def _createLowLevels():
+    return [
+# high OUT
+
+        TideLevel("level 95", "L", 95, [LIGHT_0_IDX, LIGHT_1_IDX, LIGHT_2_IDX, LIGHT_3_IDX, LIGHT_4_IDX, LIGHT_6_IDX, LIGHT_7_IDX, LIGHT_8_IDX, LIGHT_9_IDX], [LIGHT_4_IDX, LIGHT_6_IDX]),
+        TideLevel("level 90", "L", 90, [LIGHT_0_IDX, LIGHT_1_IDX, LIGHT_2_IDX, LIGHT_3_IDX, LIGHT_7_IDX, LIGHT_8_IDX, LIGHT_9_IDX]),
+        TideLevel("level 83", "L", 83, [LIGHT_0_IDX, LIGHT_1_IDX, LIGHT_2_IDX, LIGHT_8_IDX, LIGHT_9_IDX], [LIGHT_3_IDX, LIGHT_7_IDX]),
+        TideLevel("level 75", "L", 75, [LIGHT_0_IDX, LIGHT_1_IDX, LIGHT_2_IDX, LIGHT_8_IDX, LIGHT_9_IDX]),
+        TideLevel("level 63", "L", 63, [LIGHT_0_IDX, LIGHT_1_IDX, LIGHT_9_IDX], [LIGHT_2_IDX, LIGHT_8_IDX]),
+        TideLevel("level 50", "L", 50, [LIGHT_0_IDX, LIGHT_1_IDX, LIGHT_9_IDX]),
+        TideLevel("level 38", "L", 38, [LIGHT_0_IDX], [LIGHT_1_IDX, LIGHT_9_IDX]),
+        TideLevel("level 25", "L", 25, [LIGHT_0_IDX]),
+        TideLevel("level 13", "L", 13, [], [LIGHT_0_IDX]),
+# low OUT
+    ]
+
+highTideLevels = _createHighLevels()
+lowTideLevels = _createLowLevels()
+
 def signalTide(tide, currentPercentOfHighTide):
-    lightColor = OUT_TIDE_COLOR
     if (tide["type"] == "H"):
-        lightColor = IN_TIDE_COLOR
-
-    if (lessThan(currentPercentOfHighTide, LEVEL_0)):
-        _signalLow(lightColor)
-    elif(between(currentPercentOfHighTide, LEVEL_0,LEVEL_1)):
-        _signalLevel1(lightColor)
-    elif(between(currentPercentOfHighTide,LEVEL_1, LEVEL_2)):
-        _signalLevel2(lightColor)
-    elif(between(currentPercentOfHighTide, LEVEL_2, LEVEL_3)):
-        _signalLevel3(lightColor)
-    elif(between(currentPercentOfHighTide, LEVEL_3, LEVEL_4)):
-        _signalLevel4(lightColor)
-    elif(greaterThan(currentPercentOfHighTide, LEVEL_4)):
-        _signalHigh(lightColor)
+        _signalInTide(currentPercentOfHighTide)
     else:
-        print("no signals found")
+        _signalOutTide(currentPercentOfHighTide)
 
-def _signalLow(lightColor):
-    print("signal low")
-    onLights = [
-                    LIGHT_0_IDX
-                ]
-    _updateLights(onLights, lightColor)
-    time.sleep(30)
+def _signalInTide(currentPercentOfHighTide):
+    lightColor = IN_TIDE_COLOR
+    for level in highTideLevels:
+        if level.hasMetLevel("H", currentPercentOfHighTide):
+            _updateLights(level.getTurnOnLights(), level.getFlashLights(), lightColor)
+            break
 
-def _signalLevel1(lightColor):
-    print("signal level 1")
-    onLights = [
-                    LIGHT_0_IDX,
-                    LIGHT_1_IDX,
-                    LIGHT_9_IDX,
-                ]
-    _updateLights(onLights, lightColor)
+def _signalOutTide(currentPercentOfHighTide):
+    lightColor = IN_TIDE_COLOR
+    for level in lowTideLevels:
+        if level.hasMetLevel("L", currentPercentOfHighTide):
+            _updateLights(level.getTurnOnLights(), level.getFlashLights(), lightColor)
+            break
 
-def _signalLevel2(lightColor):
-    print("signal level 2")
-    onLights = [
-                    LIGHT_0_IDX,
-                    LIGHT_1_IDX,
-                    LIGHT_2_IDX,
-                    LIGHT_8_IDX,
-                    LIGHT_9_IDX,
-                ]
-    _updateLights(onLights, lightColor)
-
-def _signalLevel3(lightColor):
-    print("signal level 3")
-    onLights = [
-                    LIGHT_0_IDX,
-                    LIGHT_1_IDX,
-                    LIGHT_2_IDX,
-                    LIGHT_3_IDX,
-                    LIGHT_7_IDX,
-                    LIGHT_8_IDX,
-                    LIGHT_9_IDX,
-                ]
-    _updateLights(onLights, lightColor)
-
-def _signalLevel4(lightColor):
-    print("signal level 4")
-    onLights = [
-                    LIGHT_0_IDX,
-                    LIGHT_1_IDX,
-                    LIGHT_2_IDX,
-                    LIGHT_3_IDX,
-                    LIGHT_4_IDX,
-                    LIGHT_6_IDX,
-                    LIGHT_7_IDX,
-                    LIGHT_8_IDX,
-                    LIGHT_9_IDX,
-                ]
-    _updateLights(onLights, lightColor)
-
-def _signalHigh(lightColor):
-    print("signal high")
-    onLights = [
-                    LIGHT_0_IDX,
-                    LIGHT_1_IDX,
-                    LIGHT_2_IDX,
-                    LIGHT_3_IDX,
-                    LIGHT_4_IDX,
-                    LIGHT_5_IDX,
-                    LIGHT_6_IDX,
-                    LIGHT_7_IDX,
-                    LIGHT_8_IDX,
-                    LIGHT_9_IDX,
-                ]
-    _updateLights(onLights, lightColor)
-
-def between(currentPercentOfHighTide, min, max):
-    return currentPercentOfHighTide > min and currentPercentOfHighTide <= max
-
-def lessThan(currentPercentOfHighTide, min):
-    return currentPercentOfHighTide <= min
-
-def greaterThan(currentPercentOfHighTide, max):
-    return currentPercentOfHighTide > max
-
-def _updateLights(onLights, lightColor):
+def _updateLights(onLights, flashLights, lightColor):
     _turnOffLights(onLights)
+
     for lightIdx in onLights:
         _turnOnLight(lightIdx, lightColor)
     _updateStrip()
+
+    if flashLights != None:
+        _flashLights(flashLights, lightColor)
 
 def _turnOffLights(leaveOn):
     for i in range(48):
@@ -186,3 +145,21 @@ def _updateStrip():
         strip.show()
     except:
         print("could not show lights", sys.exc_info()[0])
+
+def _turnOnLights(lightIdxs, color, birghtness):
+    for lightIdx in lightIdxs:
+        _turnOnLight(lightIdx, color, birghtness)
+
+def _flashLights(flashLights, color):
+    _turnOnLights(flashLights, color, 255)
+    _updateStrip()
+    for i in range(20):
+        for x in range(20):
+            _turnOnLights(flashLights, color, 255 - (x * 10))
+            _updateStrip()
+            time.sleep(.5)
+
+        for x in range(20):
+            _turnOnLights(flashLights, color, (x * 10))
+            _updateStrip()
+            time.sleep(.5)
