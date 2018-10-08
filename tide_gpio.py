@@ -101,19 +101,23 @@ def signalTide(tide, currentPercentOfHighTide):
 
 def _signalInTide(currentPercentOfHighTide):
     lightColor = IN_TIDE_COLOR
+    currentLevel = None
     for level in highTideLevels:
         if level.hasMetLevel("H", currentPercentOfHighTide):
-            print("signal H {}".format(level.getName()))
-            _updateLights(level.getTurnOnLights(), level.getFlashLights(), lightColor)
-            break
+            if currentLevel == None or currentLevel > currentLevel.getPercentOfHighTide():
+                currentLevel = level
+    print("signal H {}".format(currentLevel.getName()))
+    _updateLights(currentLevel.getTurnOnLights(), currentLevel.getFlashLights(), lightColor)
 
 def _signalOutTide(currentPercentOfHighTide):
     lightColor = IN_TIDE_COLOR
+    currentLevel = None
     for level in lowTideLevels:
         if level.hasMetLevel("L", currentPercentOfHighTide):
-            print("signal L {}".format(level.getName()))
-            _updateLights(level.getTurnOnLights(), level.getFlashLights(), lightColor)
-            break
+            if currentLevel == None or currentLevel < currentLevel.getPercentOfHighTide():
+                currentLevel = level
+    print("signal L {}".format(currentLevel.getName()))
+    _updateLights(currentLevel.getTurnOnLights(), currentLevel.getFlashLights(), lightColor)
 
 def _updateLights(onLights, flashLights, lightColor):
     _turnOffLights(onLights)
@@ -153,15 +157,15 @@ def _turnOnLights(lightIdxs, color, birghtness):
         _turnOnLight(lightIdx, color, birghtness)
 
 def _flashLights(flashLights, color):
-    _turnOnLights(flashLights, color, 255)
-    _updateStrip()
     for i in range(20):
+        for x in range(20):
+            _turnOnLights(flashLights, color, (x * 10))
+            _updateStrip()
+            time.sleep(.2)
+        
         for x in range(20):
             _turnOnLights(flashLights, color, 255 - (x * 10))
             _updateStrip()
             time.sleep(.2)
 
-        for x in range(20):
-            _turnOnLights(flashLights, color, (x * 10))
-            _updateStrip()
-            time.sleep(.2)
+

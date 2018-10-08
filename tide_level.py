@@ -28,3 +28,5 @@ class TideLevel:
     def getName(self):
         return self.name
 
+    def getPercentOfHighTide(self):
+        return self.percentOfHighTide
