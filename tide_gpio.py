@@ -103,6 +103,7 @@ def _signalInTide(currentPercentOfHighTide):
     lightColor = IN_TIDE_COLOR
     for level in highTideLevels:
         if level.hasMetLevel("H", currentPercentOfHighTide):
+            print("signal H {}".format(level.getName()))
             _updateLights(level.getTurnOnLights(), level.getFlashLights(), lightColor)
             break
 
@@ -110,6 +111,7 @@ def _signalOutTide(currentPercentOfHighTide):
     lightColor = IN_TIDE_COLOR
     for level in lowTideLevels:
         if level.hasMetLevel("L", currentPercentOfHighTide):
+            print("signal L {}".format(level.getName()))
             _updateLights(level.getTurnOnLights(), level.getFlashLights(), lightColor)
             break
 

@@ -25,3 +25,6 @@ class TideLevel:
     def getFlashLights(self):
         return self.flashLights
 
+    def getName(self):
+        return self.name
+
