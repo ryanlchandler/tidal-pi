@@ -137,14 +137,14 @@ def _turnOffLights(leaveOn):
 
 def _turnOnLight(lightIdx, color, brightness=255):
     try:
-        print("turning on light {}".format(lightIdx))
+        print("turning on light {} - ({},{},{})".format(lightIdx, (brightness * color["r"] / 255), (brightness * color["g"] / 255), (brightness * color["b"] / 255)))
         strip.setPixelColor(lightIdx, Color((brightness * color["r"] / 255), (brightness * color["g"] / 255), (brightness * color["b"] / 255)))
     except:
         print("could not turn on light {}".format(lightIdx), sys.exc_info()[0])
 
 def _turnOffLight(lightIdx):
     try:
-        print("turning off light {}".format(lightIdx))
+        print("turning on light {} - ({},{},{})".format(lightIdx, OFF_COLOR["r"], OFF_COLOR["g"], OFF_COLOR["b"]))
         strip.setPixelColor(lightIdx, Color(OFF_COLOR["r"], OFF_COLOR["g"], OFF_COLOR["b"]))
     except:
         print("could not turn off light {}".format(lightIdx), sys.exc_info()[0])
