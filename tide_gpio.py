@@ -111,7 +111,7 @@ def _signalInTide(currentPercentOfHighTide):
     _updateLights(currentLevel.getTurnOnLights(), currentLevel.getFlashLights(), lightColor)
 
 def _signalOutTide(currentPercentOfHighTide):
-    lightColor = IN_TIDE_COLOR
+    lightColor = OUT_TIDE_COLOR
     currentLevel = None
     for level in lowTideLevels:
         if level.hasMetLevel("L", currentPercentOfHighTide):
