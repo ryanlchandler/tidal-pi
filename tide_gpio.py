@@ -159,8 +159,8 @@ def _turnOnLights(lightIdxs, color, birghtness):
 
 def _flashLights(flashLights, color):
     for i in range(20):
-        _turnUpBrightness(flashLights, color, 20, .1)
-        _turnDownBrightness(flashLights, color, 20, .1)
+        _turnUpBrightness(flashLights, color, 20, .15)
+        _turnDownBrightness(flashLights, color, 20, .15)
 
 def _turnUpBrightness(lights, color, steps, sleep):
     for x in range(steps):
