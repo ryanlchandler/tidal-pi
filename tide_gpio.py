@@ -160,12 +160,12 @@ def _turnOnLights(lightIdxs, color, birghtness):
 def _flashLights(flashLights, color):
     for i in range(20):
         for x in range(20):
-            _turnOnLights(flashLights, color, (x * 10))
+            _turnOnLights(flashLights, color, (x * 20))
             _updateStrip()
             time.sleep(.2)
         
         for x in range(20):
-            _turnOnLights(flashLights, color, 255 - (x * 10))
+            _turnOnLights(flashLights, color, 255 - (x * 20))
             _updateStrip()
             time.sleep(.2)
 
