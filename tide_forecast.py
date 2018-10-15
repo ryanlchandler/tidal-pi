@@ -5,6 +5,19 @@ import datetime
 import time
 from config import *
 from tide import *
+from threading import Thread
+
+def runForecastUpdateJob():
+    t = Thread(target=forecastUpdateJob)
+    t.start()
+    return t
+
+def forecastUpdateJob():
+    while(True):
+        begin_date = (datetime.date.today() - datetime.timedelta(days=1)).strftime("%m/%d/%Y")
+        end_date = (datetime.date.today() + datetime.timedelta(days=6)).strftime("%m/%d/%Y")
+        updateTideForecasts(begin_date, end_date)
+        time.sleep(60 * 60)
 
 def updateTideForecasts(begin_date, end_date):
     done = False

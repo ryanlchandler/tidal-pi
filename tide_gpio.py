@@ -36,6 +36,40 @@ LIGHT_7_IDX = 7 # 75
 LIGHT_8_IDX = 8 # 50
 LIGHT_9_IDX = 9 # 25
 
+forecast = getForecast()
+nextTide = getNextTide(forecast)
+prevTide = getPreviousTide(forecast)
+currentPercentOfHighTide = getCurrentPercentOfHighTide(prevTide, nextTide)
+
+def runTideLightUpdateJob():
+    t1 = Thread(target=tideLightUpdateJob)
+    t2 = Thread(target=tideDataUpdateJob)
+    t1.start()
+    t2.start()
+    return [t1, t2]
+
+def tideDataUpdateJob():
+    global forecast
+    global nextTide
+    global prevTide
+    global currentPercentOfHighTide
+    forecast = getForecast()
+    nextTide = getNextTide(forecast)
+    prevTide = getPreviousTide(forecast)
+    currentPercentOfHighTide = getCurrentPercentOfHighTide(prevTide, nextTide)
+    print("{}  {}: {}".format(prevTide["date"], prevTide["type"], prevTide["time"]))
+    print("{}  {}: {}".format(nextTide["date"], nextTide["type"], nextTide["time"]))
+    print("time remaining:  {} mins".format(getMinutesBeforeTide(nextTide)))
+    print("percent high tide:  {}%".format(currentPercentOfHighTide))
+    print("----------------------------")
+    sys.stdout.flush()
+
+def tideLightUpdateJob():
+    global nextTide
+    global currentPercentOfHighTide
+    while(True):
+        signalTide(nextTide, currentPercentOfHighTide)
+
 # 90 4        5        6
 # 75   3             7
 # 50     2         8

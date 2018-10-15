@@ -1,11 +1,25 @@
 from tide import *
+from tide_forecast import *
 from Adafruit_LED_Backpack import SevenSegment
+from threading import Thread
 
 highTideClock = SevenSegment.SevenSegment(address=0x70)
 highTideClock.begin()
 
 lowTideClock = SevenSegment.SevenSegment(address=0x71)
 lowTideClock.begin()
+
+def runClockUpdateJob():
+    t = Thread(target=clockUpdateJob)
+    t.start()
+    return t
+
+def clockUpdateJob():
+    while(True):
+        forecast = getForecast()
+        setLowTideClock(getNextTide(forecast, None, "L"))
+        setHighTideClock(getNextTide(forecast, None, "H"))
+        time.sleep(1)
 
 def setLowTideClock(tide):
     _setClock(tide, lowTideClock)
