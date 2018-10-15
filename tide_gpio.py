@@ -36,10 +36,10 @@ LIGHT_7_IDX = 7 # 75
 LIGHT_8_IDX = 8 # 50
 LIGHT_9_IDX = 9 # 25
 
-forecast = getForecast()
-nextTide = getNextTide(forecast)
-prevTide = getPreviousTide(forecast)
-currentPercentOfHighTide = getCurrentPercentOfHighTide(prevTide, nextTide)
+forecast = None
+nextTide = None
+prevTide = None
+currentPercentOfHighTide = None
 
 def runTideLightUpdateJob():
     t1 = Thread(target=tideLightUpdateJob)
@@ -53,22 +53,28 @@ def tideDataUpdateJob():
     global nextTide
     global prevTide
     global currentPercentOfHighTide
-    forecast = getForecast()
-    nextTide = getNextTide(forecast)
-    prevTide = getPreviousTide(forecast)
-    currentPercentOfHighTide = getCurrentPercentOfHighTide(prevTide, nextTide)
-    print("{}  {}: {}".format(prevTide["date"], prevTide["type"], prevTide["time"]))
-    print("{}  {}: {}".format(nextTide["date"], nextTide["type"], nextTide["time"]))
-    print("time remaining:  {} mins".format(getMinutesBeforeTide(nextTide)))
-    print("percent high tide:  {}%".format(currentPercentOfHighTide))
-    print("----------------------------")
-    sys.stdout.flush()
+    while (True):
+        forecast = getForecast()
+        if forecast != None:
+            nextTide = getNextTide(forecast)
+            prevTide = getPreviousTide(forecast)
+            currentPercentOfHighTide = getCurrentPercentOfHighTide(prevTide, nextTide)
+            print("{}  {}: {}".format(prevTide["date"], prevTide["type"], prevTide["time"]))
+            print("{}  {}: {}".format(nextTide["date"], nextTide["type"], nextTide["time"]))
+            print("time remaining:  {} mins".format(getMinutesBeforeTide(nextTide)))
+            print("percent high tide:  {}%".format(currentPercentOfHighTide))
+            print("----------------------------")
+            sys.stdout.flush()
+        else:
+            print("no forecast")
+        time.sleep(1)
 
 def tideLightUpdateJob():
     global nextTide
     global currentPercentOfHighTide
     while(True):
-        signalTide(nextTide, currentPercentOfHighTide)
+        if nextTide != None and currentPercentOfHighTide != None:
+            signalTide(nextTide, currentPercentOfHighTide)
 
 # 90 4        5        6
 # 75   3             7

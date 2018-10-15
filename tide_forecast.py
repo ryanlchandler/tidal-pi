@@ -59,11 +59,15 @@ def _writeForecast(forecast):
         forecastFile.write(json.dumps(forecast))
 
 def getForecast(dayOfWeek=None):
-    with open(FORECAST_FILE) as forecastFile:
-        forecast = json.load(forecastFile)
-        if dayOfWeek != None:
-            return forecast[str(dayOfWeek)]
-        return forecast
+    try:
+        with open(FORECAST_FILE) as forecastFile:
+            forecast = json.load(forecastFile)
+            if dayOfWeek != None:
+                return forecast[str(dayOfWeek)]
+            return forecast
+    except:
+        print("could not get forecast", sys.exc_info()[0])
+    return None
 
 def getTodaysForecast():
     return getForecast(str(datetime.date.today().weekday()))

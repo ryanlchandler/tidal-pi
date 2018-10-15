@@ -17,8 +17,9 @@ def runClockUpdateJob():
 def clockUpdateJob():
     while(True):
         forecast = getForecast()
-        setLowTideClock(getNextTide(forecast, None, "L"))
-        setHighTideClock(getNextTide(forecast, None, "H"))
+        if forecast != None:
+            setLowTideClock(getNextTide(forecast, None, "L"))
+            setHighTideClock(getNextTide(forecast, None, "H"))
         time.sleep(1)
 
 def setLowTideClock(tide):
