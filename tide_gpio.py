@@ -67,7 +67,7 @@ def tideDataUpdateJob():
             sys.stdout.flush()
         else:
             print("no forecast")
-        time.sleep(60)
+        time.sleep(1)
 
 def tideLightUpdateJob():
     global nextTide
@@ -75,6 +75,7 @@ def tideLightUpdateJob():
     while(True):
         if nextTide != None and currentPercentOfHighTide != None:
             signalTide(nextTide, currentPercentOfHighTide)
+        time.sleep(1)
 
 # 90 4        5        6
 # 75   3             7
