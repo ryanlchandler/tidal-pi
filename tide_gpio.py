@@ -67,7 +67,7 @@ def tideDataUpdateJob():
             sys.stdout.flush()
         else:
             print("no forecast")
-        time.sleep(1)
+        time.sleep(60)
 
 def tideLightUpdateJob():
     global nextTide
@@ -184,7 +184,7 @@ def _turnOnLight(lightIdx, color, brightness=255):
 
 def _turnOffLight(lightIdx):
     try:
-        print("turning on light {} - ({},{},{})".format(lightIdx, OFF_COLOR["r"], OFF_COLOR["g"], OFF_COLOR["b"]))
+        print("turning off light {} - ({},{},{})".format(lightIdx, OFF_COLOR["r"], OFF_COLOR["g"], OFF_COLOR["b"]))
         strip.setPixelColor(lightIdx, Color(OFF_COLOR["r"], OFF_COLOR["g"], OFF_COLOR["b"]))
     except:
         print("could not turn off light {}".format(lightIdx), sys.exc_info()[0])
@@ -200,11 +200,10 @@ def _turnOnLights(lightIdxs, color, birghtness):
         _turnOnLight(lightIdx, color, birghtness)
 
 def _flashLights(flashLights, color):
-    for i in range(20):
-        _turnUpBrightness(flashLights, color, 255, 1, 0)
-        time.sleep(.3)
-        _turnDownBrightness(flashLights, color, 255, 1, 0)
-        time.sleep(.3)
+    _turnUpBrightness(flashLights, color, 255, 1, 0)
+    time.sleep(.3)
+    _turnDownBrightness(flashLights, color, 255, 1, 0)
+    time.sleep(.3)
 
 def _turnUpBrightness(lights, color, steps, stepFactor, sleep):
     for step in range(steps):
