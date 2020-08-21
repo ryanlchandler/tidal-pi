@@ -1,10 +1,9 @@
 import sys
 import json
 import requests
-import datetime
 import time
-from config import *
-from tide import *
+from tidal_pi.config import *
+from tidal_pi.tide import *
 from threading import Thread
 
 def runForecastUpdateJob():

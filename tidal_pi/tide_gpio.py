@@ -1,13 +1,5 @@
-from tide_forecast import *
-from config import *
-from neopixel import *
-from tide_level import TideLevel
-
-LED_COUNT   = 48       # Number of LED pixels.
-LED_PIN     = 18      # GPIO pin connected to the pixels (must support PWM!).
-LED_FREQ_HZ = 800000  # LED signal frequency in hertz (usually 800khz)
-LED_DMA     = 5       # DMA channel to use for generating signal (try 5)
-LED_INVERT  = False   # True to invert the signal (when using NPN transistor level shift)
+from tidal_pi.tide_forecast import *
+from tidal_pi.tide_level import TideLevel
 
 LEVEL_100  = 100 # high lit
 LEVEL_95 = 95    # h-flash 100 or l-flash 90
@@ -41,8 +33,8 @@ nextTide = None
 prevTide = None
 currentPercentOfHighTide = None
 
-def runTideLightUpdateJob():
-    t1 = Thread(target=tideLightUpdateJob)
+def runTideLightUpdateJob(strip):
+    t1 = Thread(target=tideLightUpdateJob, args=[strip])
     t2 = Thread(target=tideDataUpdateJob)
     t1.start()
     t2.start()
@@ -69,12 +61,12 @@ def tideDataUpdateJob():
             print("no forecast")
         time.sleep(1)
 
-def tideLightUpdateJob():
+def tideLightUpdateJob(strip):
     global nextTide
     global currentPercentOfHighTide
     while(True):
         if nextTide != None and currentPercentOfHighTide != None:
-            signalTide(nextTide, currentPercentOfHighTide)
+            signalTide(strip, nextTide, currentPercentOfHighTide)
         time.sleep(1)
 
 # 90 4        5        6
@@ -93,12 +85,6 @@ def Kolor(r, g, b):
 OFF_COLOR = Kolor(0, 0, 0)
 IN_TIDE_COLOR = Kolor(3, 77, 203) # r g b
 OUT_TIDE_COLOR = Kolor(255, 0, 60)
-
-# Create NeoPixel object with appropriate configuration.
-strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT)
-# Intialize the library (must be called once before other functions).
-strip.begin()
-
 
 def _createHighLevels():
     return [
@@ -135,13 +121,13 @@ def _createLowLevels():
 highTideLevels = _createHighLevels()
 lowTideLevels = _createLowLevels()
 
-def signalTide(tide, currentPercentOfHighTide):
+def signalTide(strip, tide, currentPercentOfHighTide):
     if (tide["type"] == "H"):
-        _signalInTide(currentPercentOfHighTide)
+        _signalInTide(strip, currentPercentOfHighTide)
     else:
-        _signalOutTide(currentPercentOfHighTide)
+        _signalOutTide(strip, currentPercentOfHighTide)
 
-def _signalInTide(currentPercentOfHighTide):
+def _signalInTide(strip, currentPercentOfHighTide):
     lightColor = IN_TIDE_COLOR
     currentLevel = None
     for level in highTideLevels:
@@ -149,9 +135,9 @@ def _signalInTide(currentPercentOfHighTide):
             if currentLevel == None or level.getPercentOfHighTide() > currentLevel.getPercentOfHighTide():
                 currentLevel = level
     print("signal H {}".format(currentLevel.getName()))
-    _updateLights(currentLevel.getTurnOnLights(), currentLevel.getFlashLights(), lightColor)
+    _updateLights(strip, currentLevel.getTurnOnLights(), currentLevel.getFlashLights(), lightColor)
 
-def _signalOutTide(currentPercentOfHighTide):
+def _signalOutTide(strip, currentPercentOfHighTide):
     lightColor = OUT_TIDE_COLOR
     currentLevel = None
     for level in lowTideLevels:
@@ -159,63 +145,63 @@ def _signalOutTide(currentPercentOfHighTide):
             if currentLevel == None or level.getPercentOfHighTide() < currentLevel.getPercentOfHighTide():
                 currentLevel = level
     print("signal L {}".format(currentLevel.getName()))
-    _updateLights(currentLevel.getTurnOnLights(), currentLevel.getFlashLights(), lightColor)
+    _updateLights(strip, currentLevel.getTurnOnLights(), currentLevel.getFlashLights(), lightColor)
 
-def _updateLights(onLights, flashLights, lightColor):
-    _turnOffLights(onLights)
+def _updateLights(strip, onLights, flashLights, lightColor):
+    _turnOffLights(strip, onLights)
 
     for lightIdx in onLights:
-        _turnOnLight(lightIdx, lightColor)
-    _updateStrip()
+        _turnOnLight(strip, lightIdx, lightColor)
+    _updateStrip(strip)
 
     if flashLights != None:
-        _flashLights(flashLights, lightColor)
+        _flashLights(strip, flashLights, lightColor)
 
-def _turnOffLights(leaveOn):
+def _turnOffLights(strip, leaveOn):
     for i in range(48):
         if(i not in leaveOn):
-            _turnOffLight(i)
+            _turnOffLight(strip, i)
 
-def _turnOnLight(lightIdx, color, brightness=255):
+def _turnOnLight(strip, lightIdx, color, brightness=255):
     try:
         print("turning on light {} - ({},{},{})".format(lightIdx, (brightness * color["r"] / 255), (brightness * color["g"] / 255), (brightness * color["b"] / 255)))
-        strip.setPixelColor(lightIdx, Color((brightness * color["r"] / 255), (brightness * color["g"] / 255), (brightness * color["b"] / 255)))
+        strip.setPixelColor(lightIdx, (brightness * color["r"] / 255), (brightness * color["g"] / 255), (brightness * color["b"] / 255))
     except:
         print("could not turn on light {}".format(lightIdx), sys.exc_info()[0])
 
-def _turnOffLight(lightIdx):
+def _turnOffLight(strip, lightIdx):
     try:
         print("turning off light {} - ({},{},{})".format(lightIdx, OFF_COLOR["r"], OFF_COLOR["g"], OFF_COLOR["b"]))
-        strip.setPixelColor(lightIdx, Color(OFF_COLOR["r"], OFF_COLOR["g"], OFF_COLOR["b"]))
+        strip.setPixelColor(lightIdx, OFF_COLOR["r"], OFF_COLOR["g"], OFF_COLOR["b"])
     except:
         print("could not turn off light {}".format(lightIdx), sys.exc_info()[0])
 
-def _updateStrip():
+def _updateStrip(strip):
     try:
         strip.show()
     except:
         print("could not show lights", sys.exc_info()[0])
 
-def _turnOnLights(lightIdxs, color, birghtness):
+def _turnOnLights(strip, lightIdxs, color, birghtness):
     for lightIdx in lightIdxs:
-        _turnOnLight(lightIdx, color, birghtness)
+        _turnOnLight(strip, lightIdx, color, birghtness)
 
-def _flashLights(flashLights, color):
-    _turnUpBrightness(flashLights, color, 255, 1, 0)
+def _flashLights(strip, flashLights, color):
+    _turnUpBrightness(strip, flashLights, color, 255, 1, 0)
     time.sleep(.3)
-    _turnDownBrightness(flashLights, color, 255, 1, 0)
+    _turnDownBrightness(strip, flashLights, color, 255, 1, 0)
     time.sleep(.3)
 
-def _turnUpBrightness(lights, color, steps, stepFactor, sleep):
+def _turnUpBrightness(strip, lights, color, steps, stepFactor, sleep):
     for step in range(steps):
-        _turnOnLights(lights, color, (step * stepFactor))
-        _updateStrip()
+        _turnOnLights(strip, lights, color, (step * stepFactor))
+        _updateStrip(strip)
         time.sleep(sleep)
 
-def _turnDownBrightness(lights, color, steps, stepFactor, sleep):
+def _turnDownBrightness(strip, lights, color, steps, stepFactor, sleep):
     for step in range(steps):
-        _turnOnLights(lights, color, 255 - (step * stepFactor))
-        _updateStrip()
+        _turnOnLights(strip, lights, color, 255 - (step * stepFactor))
+        _updateStrip(strip)
         time.sleep(sleep)
 
 
