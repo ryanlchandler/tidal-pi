@@ -10,4 +10,4 @@ USER root
 RUN pip install adafruit-blinka
 RUN pip install -r requirements.txt .
 
-CMD tidalpi
+CMD tidalpi > /app/log/tidalpi.log 2>&1
