@@ -14,7 +14,7 @@ CURRENT_HASH=$(git -C /home/pi/git/tidal-pi rev-parse HEAD)
 PREV_HASH=`cat /home/pi/tidal-pi-hash`
 git -C /home/pi/git/tidal-pi rev-parse HEAD > /home/pi/tidal-pi-hash
 
-if [PREV_HASH == CURRENT_HASH]; then
+if ["$PREV_HASH" == "$CURRENT_HASH"]; then
   ./run.sh
 else
   ./build.sh
