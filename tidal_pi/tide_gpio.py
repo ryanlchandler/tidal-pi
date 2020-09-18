@@ -83,8 +83,8 @@ def Kolor(r, g, b):
     }
 
 OFF_COLOR = Kolor(0, 0, 0)
-IN_TIDE_COLOR = Kolor(3, 77, 203) # r g b
-OUT_TIDE_COLOR = Kolor(255, 0, 60)
+IN_TIDE_COLOR = Kolor(0, 0, 255) # r g b
+OUT_TIDE_COLOR = Kolor(255, 0, 0)
 
 def _createHighLevels():
     return [
