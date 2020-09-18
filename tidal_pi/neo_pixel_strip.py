@@ -18,7 +18,7 @@ class NeoPixelStrip():
         self.strip.begin()
 
     def setPixelColor(self, lightIdx, r, g, b):
-        self.strip.setPixelColor(lightIdx, Color(r, g, b))
+        self.strip.setPixelColor(lightIdx, Color(int(r), int(g), int(b)))
 
     def show(self):
         self.strip.show()
