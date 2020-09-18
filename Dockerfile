@@ -5,7 +5,7 @@ COPY . /app
 WORKDIR /app/Adafruit_Python_LED_Backpack
 RUN python3 setup.py install
 WORKDIR /app
-RUN pip3 install rpi_ws281x adafruit-circuitpython-neopixel
+RUN pip3 install rpi_ws281x
 USER root
 RUN pip3 install adafruit-blinka
 RUN pip3 install setuptools
