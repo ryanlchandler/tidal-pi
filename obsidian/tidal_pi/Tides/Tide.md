@@ -1,0 +1,5 @@
+- date
+- time
+- dateTimeStr
+- height
+- type

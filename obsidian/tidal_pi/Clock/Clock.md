@@ -1,0 +1,2 @@
+- setLowTideClock(tide)
+- setHighTideClock(tide)

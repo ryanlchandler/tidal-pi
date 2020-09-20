@@ -1,0 +1,5 @@
+- name
+- tideType
+- percentOfHighTide
+- turnOnLights
+- flashLights

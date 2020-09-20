@@ -1,0 +1,102 @@
+{
+  "main": {
+    "id": "fc706847d89abb25",
+    "type": "split",
+    "children": [
+      {
+        "id": "4647cb44714ae4f3",
+        "type": "leaf",
+        "active": true,
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "App/App.md",
+            "mode": "source"
+          }
+        },
+        "group": "12fd3b1ffecbe663"
+      },
+      {
+        "id": "a1ae2d38d8ae5752",
+        "type": "leaf",
+        "state": {
+          "type": "localgraph",
+          "state": {
+            "file": "App/App.md"
+          }
+        },
+        "group": "12fd3b1ffecbe663"
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "eb43bbd939fbd2d1",
+    "type": "split",
+    "children": [
+      {
+        "id": "e811cb2d4d1b776e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a8dd1b6fd784421f",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "0caf27db2f0b5912",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": ""
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "4b88d4c07d2df5d4",
+    "type": "split",
+    "children": [
+      {
+        "id": "54f988c904631fd9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8309c515d30fcd26",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "App/App.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "lastOpenFiles": [
+    "App/Untitled.md",
+    "Weather/Untitled.md",
+    "LightStrip/LightStripJob.md",
+    "Tides/TideJob.md",
+    "Tides/TideState.md",
+    "Tides/TideLevel.md",
+    "Tides/TideChart.md",
+    "Tides/Tide.md",
+    "Untitled.md",
+    "Clock/Untitled.md"
+  ]
+}
