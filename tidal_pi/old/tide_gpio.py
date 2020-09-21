@@ -1,5 +1,5 @@
-from tidal_pi.tide_forecast import *
-from tidal_pi.tide_level import TideLevel
+from tidal_pi.old.tide_forecast import *
+from tidal_pi.old.tide_level import TideLevel
 
 LEVEL_100  = 100 # high lit
 LEVEL_95 = 95    # h-flash 100 or l-flash 90

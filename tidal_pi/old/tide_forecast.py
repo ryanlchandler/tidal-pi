@@ -54,12 +54,12 @@ def _getTideForecast(begin_date, end_date):
     return json.loads(r.text)["predictions"]
 
 def _writeForecast(forecast):
-    with open(FORECAST_FILE, 'w+') as forecastFile:
+    with open(TIDE_FORECAST_FILE, 'w+') as forecastFile:
         forecastFile.write(json.dumps(forecast))
 
 def getForecast(dayOfWeek=None):
     try:
-        with open(FORECAST_FILE) as forecastFile:
+        with open(TIDE_FORECAST_FILE) as forecastFile:
             forecast = json.load(forecastFile)
             if dayOfWeek != None:
                 return forecast[str(dayOfWeek)]

@@ -10,7 +10,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "App/App.md",
+            "file": "Tides/TideState.md",
             "mode": "source"
           }
         },
@@ -22,7 +22,7 @@
         "state": {
           "type": "localgraph",
           "state": {
-            "file": "App/App.md"
+            "file": "Tides/TideState.md"
           }
         },
         "group": "12fd3b1ffecbe663"
@@ -76,7 +76,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "App/App.md"
+                "file": "Tides/TideState.md"
               }
             }
           }
@@ -88,15 +88,15 @@
     "collapsed": true
   },
   "lastOpenFiles": [
+    "Tides/TideState.md",
+    "Weather/WeatherService.md",
+    "Tides/TideChart.md",
+    "Tides/Tide.md",
+    "LightStrip/LightStrip.md",
+    "App/App.md",
     "App/Untitled.md",
     "Weather/Untitled.md",
     "LightStrip/LightStripJob.md",
-    "Tides/TideJob.md",
-    "Tides/TideState.md",
-    "Tides/TideLevel.md",
-    "Tides/TideChart.md",
-    "Tides/Tide.md",
-    "Untitled.md",
-    "Clock/Untitled.md"
+    "Tides/TideJob.md"
   ]
 }

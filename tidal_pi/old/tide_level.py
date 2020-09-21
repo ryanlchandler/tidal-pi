@@ -1,7 +1,3 @@
-
-
-
-
 class TideLevel:
     def __init__(self, name, tideType, percentOfHighTide, turnOnLights, flashLights=None):
         self.name = name

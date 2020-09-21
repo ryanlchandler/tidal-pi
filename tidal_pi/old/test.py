@@ -1,5 +1,5 @@
-from tidal_pi.tide_clock import *
-from tidal_pi.tide_gpio import *
+from tidal_pi.old.tide_clock import *
+from tidal_pi.old.tide_gpio import *
 
 
 threads = []
