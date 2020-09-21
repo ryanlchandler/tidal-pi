@@ -6,11 +6,10 @@
       {
         "id": "4647cb44714ae4f3",
         "type": "leaf",
-        "active": true,
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Tides/TideState.md",
+            "file": "Tides/TideChart.md",
             "mode": "source"
           }
         },
@@ -19,10 +18,11 @@
       {
         "id": "a1ae2d38d8ae5752",
         "type": "leaf",
+        "active": true,
         "state": {
           "type": "localgraph",
           "state": {
-            "file": "Tides/TideState.md"
+            "file": "Tides/TideChart.md"
           }
         },
         "group": "12fd3b1ffecbe663"
@@ -76,7 +76,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Tides/TideState.md"
+                "file": "Tides/TideChart.md"
               }
             }
           }
@@ -88,15 +88,15 @@
     "collapsed": true
   },
   "lastOpenFiles": [
-    "Tides/TideState.md",
-    "Weather/WeatherService.md",
     "Tides/TideChart.md",
+    "Tides/TideState.md",
+    "Tides/TideLevel.md",
+    "Weather/WeatherService.md",
     "Tides/Tide.md",
     "LightStrip/LightStrip.md",
     "App/App.md",
     "App/Untitled.md",
     "Weather/Untitled.md",
-    "LightStrip/LightStripJob.md",
-    "Tides/TideJob.md"
+    "LightStrip/LightStripJob.md"
   ]
 }

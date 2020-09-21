@@ -14,7 +14,8 @@ class TideChart():
             self.tides = self._build_tide_chart(predictions)
             self._write_tide_chart(self.tides)
 
-    def get_tide_level(self):
+    def get_tide_state(self):
+        #  TODO
 
 
 
@@ -55,7 +56,7 @@ class TideChart():
                 all_tides.append(tide)
         return all_tides
 
-    def _get_next_tide(self):
+    def _get_next_tide(self, tide_type):
         predicate_date_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
         all_tides = self.sort_tides(self._get_all_tides())

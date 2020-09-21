@@ -1,5 +1,5 @@
 class TideLevel:
-    def __init__(self, name, tide_type):
+    def __init__(self, name, tide_type, percent_of_high_tide):
         self.name = name
         self.tide_type = tide_type
         self.percent_of_high_tide = percent_of_high_tide
