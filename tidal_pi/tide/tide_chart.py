@@ -3,21 +3,20 @@ import datetime
 import json
 import tidal_pi.config as config
 from tidal_pi.tide.tide import Tide
+from tidal_pi.tide.tide_state import TideState
 
 
 class TideChart():
     
-    def __init__(self, predictions=None):
-        if (predictions == None):
-            self.tides = self._read_tide_chart()
-        else:
-            self.tides = self._build_tide_chart(predictions)
-            self._write_tide_chart(self.tides)
+    def __init__(self):
+        self.tides = self._read_tide_chart()
+
+    def update(self, predictions):
+        self.tides = self._build_tide_chart(predictions)
+        self._write_tide_chart(self.tides)
 
     def get_tide_state(self):
-        #  TODO
-
-
+        return TideState(self._get_previous_tide(), self._get_next_tide())
 
     def _build_tide_chart(self, predictions):
         tides = {}
@@ -56,12 +55,15 @@ class TideChart():
                 all_tides.append(tide)
         return all_tides
 
-    def _get_next_tide(self, tide_type):
+    def _get_next_tide(self, tide_type=None):
         predicate_date_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
         all_tides = self.sort_tides(self._get_all_tides())
         for tide in all_tides:
             if tide.get_date_time_str() > predicate_date_time:
+                if (tide_type == None or tide_type == tide.get_type()):
+                    return tide
+
                 return tide
         return None
 

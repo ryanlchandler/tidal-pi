@@ -1,3 +1,5 @@
+import datetime
+
 class Tide():
 
     def __init__(self, date, time, type, height):
@@ -20,3 +22,6 @@ class Tide():
 
     def get_date_time_str(self):
         return "{} {}".format(self.date, self.time),
+
+    def get_date_time(self):
+        return datetime.datetime.strptime(self.get_date_time_str(), '%Y-%m-%d %H:%M')

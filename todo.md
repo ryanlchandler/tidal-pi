@@ -1,10 +1,8 @@
-- implement get_tide_state() in TideChart
+- implement tide state provider
 
 - create a weather job
 
 - implement tide job
-
-- implement tide state provider
 
 - create/run jobs in app
 
