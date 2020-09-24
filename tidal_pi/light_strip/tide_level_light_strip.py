@@ -1,13 +1,14 @@
 from tidal_pi.light_strip.tide_level_light_config import *
 from tidal_pi.tide.tide_level import TideLevel
+from tidal_pi.light_strip.light_strip_factory import create_light_strip
 import logging
 import sys
 import time
 
 class TideLevelLightStrip():
 
-    def __init__(self, light_strip):
-        self.light_strip = light_strip
+    def __init__(self):
+        self.light_strip = create_light_strip()
         self.high_tide_levels = [
             # low IN
             TideLevel("low tide", "H", 0),

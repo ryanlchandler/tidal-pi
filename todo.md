@@ -1,9 +1,8 @@
-- implement tide state provider
-
-- create a weather job
-
 - implement tide job
+
+- implement job runner  
 
 - create/run jobs in app
 
-- add tests  
+- add tests
+
