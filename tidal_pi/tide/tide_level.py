@@ -32,3 +32,5 @@ class TideLevel:
                 else:
                     if current_level == None or level.get_percent_of_high_tide() < current_level.get_percent_of_high_tide():
                         current_level = level
+
+        return current_level

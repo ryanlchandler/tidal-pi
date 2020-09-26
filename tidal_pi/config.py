@@ -1,5 +1,8 @@
 import os
 
+# general
+LOG_LEVEL = os.getenv('LOG_LEVEL', "DEBUG")
+
 # weather
 TIDE_URL = "https://tidesandcurrents.noaa.gov/api/datagetter"
 STATION_ID = "8679083"

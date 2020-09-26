@@ -9,9 +9,9 @@ class LedClock:
         self.clock.begin()
         logging.debug("new clock named {} for address {}".format(name, address))
 
-    def setClock(self, tide):
-        logging.debug("set clock {} to {}".format(self.name, tide.getDateTime()))
-        tideTime = tide.getDateTime()
+    def set_clock(self, tide):
+        logging.debug("set clock {} to {}".format(self.name, tide.get_date_time()))
+        tideTime = tide.get_date_time()
         hour = tideTime.hour
         minute = tideTime.minute
 

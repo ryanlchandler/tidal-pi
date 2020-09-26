@@ -6,6 +6,9 @@ from tidal_pi.light_strip.light_strip_job import LightStripJob
 from tidal_pi.tide.tide_chart import TideChart
 from tidal_pi.light_strip.tide_level_light_strip import TideLevelLightStrip
 from tidal_pi.job_runner import JobRunner
+from tidal_pi.config import LOG_LEVEL
+import logging
+import sys
 
 
 def start():
@@ -13,6 +16,9 @@ def start():
 
 class TidalPi():
     def run(self):
+        self._configure_logging()
+        logging.info("TidalPi starting")
+
         # weather
         tide_chart = TideChart()
         tide_state_provider = TideStateProvider(tide_chart)
@@ -26,10 +32,34 @@ class TidalPi():
         low_tide_clock_job = LowTideClockJob(tide_state_provider)
 
         threads = []
-        threads.append(JobRunner(weather_update_job, 60 * 60))
-        threads.append(JobRunner(light_strip_job, 1))
-        threads.append(JobRunner(high_tide_clock_job, 1))
-        threads.append(JobRunner(low_tide_clock_job, 1))
+        threads.append(JobRunner("weather update job", weather_update_job, 60 * 60).start())
+        threads.append(JobRunner("light strip job", light_strip_job, 1).start())
+        threads.append(JobRunner("high tide clock", high_tide_clock_job, 1).start())
+        threads.append(JobRunner("low tide clock", low_tide_clock_job, 1).start())
 
+        logging.info("TidalPi running")
         for thread in threads:
             thread.join()
+
+
+    def _configure_logging(self):
+        root = logging.getLogger()
+        root.setLevel(self._get_log_level())
+
+        handler = logging.StreamHandler(sys.stdout)
+        handler.setLevel(self._get_log_level())
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        handler.setFormatter(formatter)
+        root.addHandler(handler)
+
+    def _get_log_level(self):
+        if(LOG_LEVEL.upper() == "INFO"):
+            return logging.INFO
+        elif(LOG_LEVEL.upper() == "DEBUG"):
+            return logging.DEBUG
+        elif(LOG_LEVEL.upper() == "WARN"):
+            return logging.WARN
+        elif(LOG_LEVEL.upper() == "ERROR"):
+            return logging.ERROR
+        else:
+            return logging.INFO

@@ -3,9 +3,11 @@ from tidal_pi.tide.tide_level import TideLevel
 
 class TideState():
 
-    def __init__(self, previous_tide, next_tide):
+    def __init__(self, previous_tide, next_tide, next_high_tide, next_low_tide):
         self.previous_tide = previous_tide
         self.next_tide = next_tide
+        self.next_high_tide = next_high_tide
+        self.next_low_tide = next_low_tide
         self.current_tide_level = TideLevel(
             "current tide",
             next_tide.get_type(),
@@ -17,6 +19,12 @@ class TideState():
 
     def get_next_tide(self):
         return self.next_tide
+
+    def get_next_high_tide(self):
+        return self.next_high_tide
+
+    def get_next_low_tide(self):
+        return self.next_low_tide
 
     def get_current_tide_level(self):
         return self.current_tide_level
@@ -36,7 +44,7 @@ class TideState():
     def _get_minutes_before_tide(tide, predicate_date_time=None):
         if (predicate_date_time == None):
             predicate_date_time = datetime.datetime.now()
-        return round((tide.get_date_time(tide) - predicate_date_time).total_seconds() / 60, 2)
+        return round((tide.get_date_time() - predicate_date_time).total_seconds() / 60, 2)
 
 
 

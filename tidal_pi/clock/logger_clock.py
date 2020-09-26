@@ -6,5 +6,5 @@ class LoggerClock:
         self.address = address
         logging.info("new clock named {} for address {}".format(name, address))
 
-    def setClock(self, tide):
-        logging.info("set clock {} to {}".format(self.name, tide.getDateTime()))
+    def set_clock(self, tide):
+        logging.info("set clock {} to {}".format(self.name, tide.get_date_time()))

@@ -1,9 +1,10 @@
 import datetime
+import logging
 
 class Tide():
 
     def __init__(self, date, time, type, height):
-        self.data = date
+        self.date = date
         self.time = time
         self.type = type
         self.height = height
@@ -21,7 +22,7 @@ class Tide():
         return self.height
 
     def get_date_time_str(self):
-        return "{} {}".format(self.date, self.time),
+        return "{} {}".format(self.get_date(), self.get_time())
 
     def get_date_time(self):
         return datetime.datetime.strptime(self.get_date_time_str(), '%Y-%m-%d %H:%M')

@@ -14,5 +14,5 @@ class LowTideClockJob:
             tide_state = self.tide_state_provider.get_tide_state()
 
             if tide_state != None:
-                self.clock.setClock(tide_state.get_next_low_tide())
+                self.clock.set_clock(tide_state.get_next_low_tide())
             time.sleep(1)

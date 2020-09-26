@@ -22,12 +22,12 @@ def clockUpdateJob():
         time.sleep(1)
 
 def setLowTideClock(tide):
-    _setClock(tide, lowTideClock)
+    _set_clock(tide, lowTideClock)
 
 def setHighTideClock(tide):
-    _setClock(tide, highTideClock)
+    _set_clock(tide, highTideClock)
 
-def _setClock(tide, clock):
+def _set_clock(tide, clock):
     tideTime = getTideDateTime(tide)
     hour = tideTime.hour
     minute = tideTime.minute
