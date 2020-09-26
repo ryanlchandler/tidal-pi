@@ -6,9 +6,12 @@ class LedClock:
     def __init__(self, name, address):
         self.name = name
         self.address = address
-        self.clock = SevenSegment.SevenSegment(self.address)
-        self.clock.begin()
-        logging.debug("new clock named {} for address {}".format(name, address))
+        try:
+            self.clock = SevenSegment.SevenSegment(self.address)
+            self.clock.begin()
+            logging.debug("new clock named {} for address {}".format(name, address))
+        except:
+            logging.error("could not start clock", sys.exc_info()[0])
 
     def set_clock(self, tide):
         try:
