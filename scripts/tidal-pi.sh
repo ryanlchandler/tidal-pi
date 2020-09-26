@@ -6,7 +6,6 @@ if [ -d "/home/pi/git/tidal-pi" ]
 then
     git -C /home/pi/git/tidal-pi stash
     git -C /home/pi/git/tidal-pi pull https://github.com/ryanlchandler/tidal-pi.git
-    git -C /home/pi/git/tidal-pi checkout origin/master
 else
     git clone https://github.com/ryanlchandler/tidal-pi.git /home/pi/git/tidal-pi
     git -C /home/pi/git/tidal-pi submodule init
