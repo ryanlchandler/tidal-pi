@@ -25,7 +25,8 @@ export WEATHER_SERVICE=NoaaWeatherService
 export LIGHT_STRIP_TYPE=NeoPixelStrip
 export CLOCK_TYPE=LedClock
 
-if ["$PREV_HASH" = "$CURRENT_HASH"] then
+if ["$PREV_HASH" = "$CURRENT_HASH"]
+then
   ./run.sh
 else
   echo "$PREV_HASH != $CURRENT_HASH"
