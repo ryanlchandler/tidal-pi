@@ -17,7 +17,7 @@ class NeoPixelStrip():
         self.strip = Adafruit_NeoPixel(self.led_count, self.led_pin, self.led_freq_hz, self.led_dma, self.led_invert)
         self.strip.begin()
 
-    def setPixelColor(self, lightIdx, r, g, b):
+    def set_pixel_color(self, lightIdx, r, g, b):
         self.strip.setPixelColor(lightIdx, Color(int(r), int(g), int(b)))
 
     def show(self):
