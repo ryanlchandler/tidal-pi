@@ -1,5 +1,9 @@
 #!/bin/bash
 
+echo "-----------------------------------------"
+echo "               Running"
+echo "-----------------------------------------"
+
 LIGHT_STRIP_TYPE="${LIGHT_STRIP_TYPE:-LoggerStrip}"
 WEATHER_SERVICE="${WEATHER_SERVICE:-LoggerWeatherService}"
 CLOCK_TYPE="${CLOCK_TYPE:-LoggerClock}"
