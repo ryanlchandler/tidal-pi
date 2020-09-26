@@ -116,7 +116,7 @@ class TideLevelLightStrip():
 
     def _turn_up_brightness(self, lights, color, steps, step_factor, sleep):
         for step in range(steps):
-            self._turnOnLights(lights, color, (step * step_factor))
+            self._turn_on_lights(lights, color, (step * step_factor))
             self._update_strip()
             time.sleep(sleep)
 
