@@ -55,7 +55,7 @@ class TideLevelLightStrip():
 
     def _render_tide_going_out(self, tide_state):
         current_level = tide_state.get_current_tide_level().find_level(self.low_tide_levels)
-        logging.info("current tide level: {} - {}".format(current_level.get_tide_type(), current_level.getName()))
+        logging.info("current tide level: {} - {}".format(current_level.get_tide_type(), current_level.get_name()))
         self._render_light_strip(
             LOW_TIDE_LEVEL_LIGHTS_ON.get(current_level.get_percent_of_high_tide()),
             LOW_TIDE_LEVEL_LIGHTS_FLASHING.get(current_level.get_percent_of_high_tide()),
