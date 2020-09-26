@@ -12,7 +12,7 @@ WEATHER_SERVICE = os.getenv('WEATHER_SERVICE', "LoggerWeatherService")
 # light strip
 LOW_TIDE_PIN = 16
 HIGH_TIDE_PIN = 12
-LIGHT_STRIP_TYPE = os.getenv('STRIP_TYPE', "LoggerStrip")
+LIGHT_STRIP_TYPE = os.getenv('LIGHT_STRIP_TYPE', "LoggerStrip")
 
 # clock
 CLOCK_TYPE = os.getenv('CLOCK_TYPE', "LoggerClock")
