@@ -1,4 +1,3 @@
-from tidal_pi.old.tide_clock import *
 from tidal_pi.old.tide_gpio import *
 
 

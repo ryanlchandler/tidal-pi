@@ -2,8 +2,6 @@ import sys
 import json
 import requests
 import time
-from tidal_pi.config import *
-from tidal_pi.tide import *
 from threading import Thread
 
 def runForecastUpdateJob():

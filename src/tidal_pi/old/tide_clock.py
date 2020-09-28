@@ -1,4 +1,3 @@
-from tidal_pi.old.tide_forecast import *
 from Adafruit_LED_Backpack import SevenSegment
 from threading import Thread
 

@@ -2,6 +2,7 @@ import os
 
 # general
 LOG_LEVEL = os.getenv('LOG_LEVEL', "DEBUG")
+RUN_TESTS = os.getenv('RUN_TESTS', "false")
 
 # weather
 TIDE_URL = "https://tidesandcurrents.noaa.gov/api/datagetter"

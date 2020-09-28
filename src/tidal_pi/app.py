@@ -7,14 +7,26 @@ from tidal_pi.tide.tide_chart import TideChart
 from tidal_pi.light_strip.tide_level_light_strip import TideLevelLightStrip
 from tidal_pi.job_runner import JobRunner
 from tidal_pi.config import LOG_LEVEL
+from tidal_pi.config import RUN_TESTS
 import logging
 import sys
+import pytest
 
 
 def start():
-    TidalPi().run()
+    if(RUN_TESTS.lower() == "true"):
+        TidalPi().run_tests()
+    else:
+        TidalPi().run()
+
 
 class TidalPi():
+
+    def run_tests(self):
+        logging.info("running tests...")
+        pytest.main(["-x", "tests"])
+        logging.info("tests finished")
+
     def run(self):
         self._configure_logging()
         logging.info("TidalPi starting")

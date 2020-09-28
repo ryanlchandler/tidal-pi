@@ -1,6 +1,6 @@
-from tidal_pi.light_strip.tide_level_light_config import *
 from tidal_pi.tide.tide_level import TideLevel
 from tidal_pi.light_strip.light_strip_factory import create_light_strip
+from tidal_pi.light_strip.tide_level_light_config import *
 import logging
 import sys
 import time

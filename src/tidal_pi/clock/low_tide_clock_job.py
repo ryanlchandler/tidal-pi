@@ -1,5 +1,5 @@
-import tidal_pi.config as config
-import tidal_pi.clock.clock_factory as clock_factory
+from tidal_pi import config
+from tidal_pi.clock import clock_factory
 import time
 
 

@@ -1,7 +1,7 @@
 import sys
 import datetime
 import json
-import tidal_pi.config as config
+from tidal_pi import config
 import logging
 from tidal_pi.tide.tide import Tide
 from tidal_pi.tide.tide_state import TideState
@@ -9,15 +9,20 @@ from tidal_pi.tide.tide_state import TideState
 
 class TideChart():
     
-    def __init__(self):
-        self.tides = self._read_tide_chart()
+    def __init__(self, tides=None):
+        if(tides == None):
+            self.tides = self._read_tide_chart()
+        else:
+            self.tides = tides
 
     def update(self, predictions):
         self.tides = self._build_tide_chart(predictions)
         self._write_tide_chart(self.tides)
 
-    def get_tide_state(self):
-        return TideState(self._get_previous_tide(), self._get_next_tide(), self._get_next_tide("H"), self._get_next_tide("L"))
+    def get_tide_state(self, from_date_time=None):
+        if(from_date_time == None):
+            from_date_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+        return TideState(self._get_previous_tide(from_date_time), self._get_next_tide(from_date_time), self._get_next_tide(from_date_time, "H"), self._get_next_tide(from_date_time, "L"))
 
     def _build_tide_chart(self, predictions):
         tides = {}
@@ -75,23 +80,20 @@ class TideChart():
                 all_tides.append(tide)
         return all_tides
 
-    def _get_next_tide(self, tide_type=None):
-        predicate_date_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-
+    def _get_next_tide(self, from_date_time, tide_type=None):
         all_tides = self._sort_tides(self._get_all_tides())
         for tide in all_tides:
-            if tide.get_date_time_str() > predicate_date_time:
+            if tide.get_date_time_str() > from_date_time:
                 if (tide_type == None or tide_type == tide.get_type()):
                     return tide
 
         return None
 
-    def _get_previous_tide(self):
-        predicate_date_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+    def _get_previous_tide(self, from_date_time):
         all_tides = self._sort_tides(self._get_all_tides())
         previous_tide = None
         for tide in all_tides:
-            if tide.get_date_time_str() > predicate_date_time:
+            if tide.get_date_time_str() > from_date_time:
                 return previous_tide
             previous_tide = tide
         return None

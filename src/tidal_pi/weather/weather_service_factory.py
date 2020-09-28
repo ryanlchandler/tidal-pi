@@ -1,4 +1,4 @@
-import tidal_pi.config as config
+from tidal_pi import config
 import logging
 
 def create_weather_service():
