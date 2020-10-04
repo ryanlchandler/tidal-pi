@@ -23,14 +23,23 @@ class TideLevel:
             return False
 
     def find_level(self, tide_levels):
-        current_level = None
+        if self.get_tide_type() == "H":
+            return self._find_highest(tide_levels)
+        else:
+            return self._find_lowest(tide_levels)
+
+    def _find_highest(self, tide_levels):
+        found_level = None
         for level in tide_levels:
             if self.has_met(level):
-                if self.get_tide_type() == "H":
-                    if current_level == None or level.get_percent_of_high_tide() > current_level.get_percent_of_high_tide():
-                        current_level = level
-                else:
-                    if current_level == None or level.get_percent_of_high_tide() < current_level.get_percent_of_high_tide():
-                        current_level = level
+                if found_level == None or level.get_percent_of_high_tide() > found_level.get_percent_of_high_tide():
+                    found_level = level
+        return found_level
 
-        return current_level
+    def _find_lowest(self, tide_levels):
+        found_level = None
+        for level in tide_levels:
+            if self.has_met(level):
+                if found_level == None or level.get_percent_of_high_tide() < found_level.get_percent_of_high_tide():
+                    found_level = level
+        return found_level
