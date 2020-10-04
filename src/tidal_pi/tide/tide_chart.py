@@ -22,7 +22,7 @@ class TideChart():
     def get_tide_state(self, from_date_time=None):
         if(from_date_time == None):
             from_date_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-        return TideState(self._get_previous_tide(from_date_time), self._get_next_tide(from_date_time), self._get_next_tide(from_date_time, "H"), self._get_next_tide(from_date_time, "L"))
+        return TideState(self._get_previous_tide(from_date_time), self._get_next_tide(from_date_time), self._get_next_tide(from_date_time, "H"), self._get_next_tide(from_date_time, "L"), from_date_time)
 
     def _build_tide_chart(self, predictions):
         tides = {}
