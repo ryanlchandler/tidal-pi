@@ -9,6 +9,7 @@ WEATHER_SERVICE="${WEATHER_SERVICE:-LoggerWeatherService}"
 CLOCK_TYPE="${CLOCK_TYPE:-LoggerClock}"
 LOG_LEVEL="${LOG_LEVEL:-INFO}"
 RUN_TESTS="${RUN_TESTS:-false}"
+TZ="${TZ:-America/New_York}"
 
 docker rm --force tidalpi
 
@@ -21,5 +22,6 @@ docker run \
 --env CLOCK_TYPE=$CLOCK_TYPE \
 --env LOG_LEVEL=$LOG_LEVEL \
 --env RUN_TESTS=$RUN_TESTS \
+--env TZ=$TZ \
 --detach \
 --name tidalpi tidalpi:1.0
