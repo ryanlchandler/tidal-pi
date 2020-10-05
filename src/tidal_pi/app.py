@@ -65,6 +65,7 @@ class TidalPi():
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         handler.setFormatter(formatter)
         root.addHandler(handler)
+        logging.getLogger("tidal_pi.light_strip.tide_level_light_strip").setLevel(logging.INFO)
 
     def _get_log_level(self):
         if(LOG_LEVEL.upper() == "INFO"):
