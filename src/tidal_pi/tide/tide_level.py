@@ -32,7 +32,7 @@ class TideLevel:
 
         logging.debug("=== looking through tides ===")
         for level in tide_levels:
-            logging.debug("{}\n----------------------------".format(level))
+            logging.debug("{}\n----------------------------".format(level.to_string()))
         logging.debug("=============================")
 
         logging.debug("=== found tide ===\n{}\n=============================".format(found_tide.to_string()))
