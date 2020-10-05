@@ -25,6 +25,7 @@ class TideLevel:
             return False
 
     def find_level(self, tide_levels):
+        logging.debug("=== find level ===\n{}\n==========================".format(self.to_string()))
         if self.get_tide_type() == "H":
             found_tide = self._find_highest(tide_levels)
         else:
