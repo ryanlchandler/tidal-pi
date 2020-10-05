@@ -2,6 +2,8 @@ import datetime
 from tidal_pi.tide.tide_level import TideLevel
 import logging
 
+logger = logging.getLogger(__name__)
+
 class TideState():
 
     def __init__(self, previous_tide, next_tide, next_high_tide, next_low_tide, from_date_time=None):
