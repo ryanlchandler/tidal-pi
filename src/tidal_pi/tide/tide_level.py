@@ -1,3 +1,5 @@
+import logging
+
 class TideLevel:
     def __init__(self, name, tide_type, percent_of_high_tide):
         self.name = name
@@ -24,11 +26,23 @@ class TideLevel:
 
     def find_level(self, tide_levels):
         if self.get_tide_type() == "H":
-            return self._find_highest(tide_levels)
+            found_tide = self._find_highest(tide_levels)
         else:
-            return self._find_lowest(tide_levels)
+            found_tide = self._find_lowest(tide_levels)
+
+        logging.debug("=== looking through tides ===")
+        for level in tide_levels:
+            logging.debug("{}\n----------------------------".format(level))
+        logging.debug("=============================")
+
+        logging.debug("=== found tide ===\n{}\n=============================".format(found_tide.to_string()))
+        return found_tide
+
+    def to_string(self):
+        return "name: {}\ntype: {}\npercent of high tide: {}".format(self.get_name(), self.get_tide_type(), self.get_percent_of_high_tide())
 
     def _find_highest(self, tide_levels):
+        logging.debug("find highest")
         found_level = None
         for level in tide_levels:
             if self.has_met(level):
@@ -37,6 +51,7 @@ class TideLevel:
         return found_level
 
     def _find_lowest(self, tide_levels):
+        logging.debug("find lowest")
         found_level = None
         for level in tide_levels:
             if self.has_met(level):

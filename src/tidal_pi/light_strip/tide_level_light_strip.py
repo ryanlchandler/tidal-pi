@@ -39,12 +39,14 @@ class TideLevelLightStrip():
         ]        
 
     def render(self, tide_state):
+        logging.debug("curent tide level - tide type: {}".format(tide_state.get_current_tide_level().get_tide_type()))
         if (tide_state.get_current_tide_level().get_tide_type() == "H"):
             self._render_tide_coming_in(tide_state)
         else:
             self._render_tide_going_out(tide_state)
 
     def _render_tide_coming_in(self, tide_state):
+        logging.debug("rendering in coming tide")
         current_level = tide_state.get_current_tide_level().find_level(self.high_tide_levels)
         logging.info("current tide level: {} - {}".format(current_level.get_tide_type(), current_level.get_name()))
         self._render_light_strip(
@@ -54,6 +56,7 @@ class TideLevelLightStrip():
         )
 
     def _render_tide_going_out(self, tide_state):
+        logging.debug("rendering out going tide")
         current_level = tide_state.get_current_tide_level().find_level(self.low_tide_levels)
         logging.info("current tide level: {} - {}".format(current_level.get_tide_type(), current_level.get_name()))
         self._render_light_strip(

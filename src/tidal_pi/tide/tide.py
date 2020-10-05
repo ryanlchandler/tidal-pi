@@ -26,3 +26,6 @@ class Tide():
 
     def get_date_time(self):
         return datetime.datetime.strptime(self.get_date_time_str(), '%Y-%m-%d %H:%M')
+
+    def to_string(self):
+        return "date time: {}\ntype: {}\nheight: {}".format(self.get_date_time_str(), self.get_type(), self.get_height())
