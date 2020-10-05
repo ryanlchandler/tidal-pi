@@ -3,6 +3,8 @@ from threading import Thread
 import logging
 import sys
 
+logger = logging.getLogger(__name__)
+
 
 class JobRunner():
 
@@ -20,16 +22,16 @@ class JobRunner():
 
     def run(self):
         while(self.stopped == False):
-            logging.info("running {}".format(self.name))
+            logger.info("running {}".format(self.name))
             try:
                 self.job.run()
             except:
-                logging.error("error running job {}".format(self.name), sys.exc_info()[0])
+                logger.error("error running job {}".format(self.name), sys.exc_info()[0])
 
-            logging.info("finished running {}".format(self.name))
-            logging.info("{} sleeping for {}".format(self.name, self.sleep_seconds))
+            logger.info("finished running {}".format(self.name))
+            logger.info("{} sleeping for {}".format(self.name, self.sleep_seconds))
             time.sleep(self.sleep_seconds)
-            logging.info("{} awake".format(self.name))
+            logger.info("{} awake".format(self.name))
 
     def stop(self):
         self.run = False

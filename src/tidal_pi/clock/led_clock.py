@@ -2,6 +2,8 @@ import sys
 import logging
 from Adafruit_LED_Backpack import SevenSegment
 
+logger = logging.getLogger(__name__)
+
 class LedClock:
     def __init__(self, name, address):
         self.name = name
@@ -9,15 +11,15 @@ class LedClock:
         try:
             self.clock = SevenSegment.SevenSegment(self.address)
             self.clock.begin()
-            logging.debug("new clock named {} for address {}".format(name, address))
+            logger.debug("new clock named {} for address {}".format(name, address))
         except:
-            logging.error("could not start clock", sys.exc_info()[0])
+            logger.error("could not start clock", sys.exc_info()[0])
             self.clock = None
 
     def set_clock(self, tide):
         if self.clock != None:
             try:
-                logging.debug("set clock {} to {}".format(self.name, tide.get_date_time()))
+                logger.debug("set clock {} to {}".format(self.name, tide.get_date_time()))
                 tideTime = tide.get_date_time()
                 hour = tideTime.hour
                 minute = tideTime.minute
@@ -35,6 +37,6 @@ class LedClock:
 
                 self.clock.write_display()
             except:
-                logging.error("could not set clock", sys.exc_info()[0])
+                logger.error("could not set clock", sys.exc_info()[0])
         else:
-            logging.info("clock did not start cannot set {}".format(self.name))
+            logger.info("clock did not start cannot set {}".format(self.name))

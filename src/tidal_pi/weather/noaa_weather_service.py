@@ -4,6 +4,8 @@ from tidal_pi import config
 import logging
 import sys
 
+logger = logging.getLogger(__name__)
+
 _product = "predictions"
 _format = "json"
 _units = "english"
@@ -14,7 +16,7 @@ _interval = "hilo"
 class NoaaWeatherService():
 
     def fetch_tide_forecast(self, begin_date, end_date):
-        logging.info("fetching noaa tide forecast for {} to {}".format(begin_date, end_date))
+        logger.info("fetching noaa tide forecast for {} to {}".format(begin_date, end_date))
         try:
             url = ("%s?station=%s&begin_date=%s&end_date=%s&product=%s&format=%s&units=%s&time_zone=%s&datum=%s&interval=%s" %
                    (
@@ -30,10 +32,10 @@ class NoaaWeatherService():
                        _interval
                    ))
             r = requests.get(url)
-            logging.debug("\n---response - start---\n{}\n---response - end---".format(r.text))
+            logger.debug("\n---response - start---\n{}\n---response - end---".format(r.text))
             return json.loads(r.text)["predictions"]
         except:
-            logging.error("could not fetch weather", sys.exc_info()[0])
+            logger.error("could not fetch weather", sys.exc_info()[0])
 
 
 

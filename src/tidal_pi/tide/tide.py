@@ -1,6 +1,8 @@
 import datetime
 import logging
 
+logger = logging.getLogger(__name__)
+
 class Tide():
 
     def __init__(self, date, time, type, height):

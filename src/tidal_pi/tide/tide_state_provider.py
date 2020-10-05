@@ -1,5 +1,7 @@
 import logging
 
+logger = logging.getLogger(__name__)
+
 class TideStateProvider():
 
     def __init__(self, tide_chart):
@@ -13,7 +15,7 @@ class TideStateProvider():
         print(x)
 
 
-        logging.debug("providing tide state: \n   now: {}\n   previous_tide: {}\n   next_tide: {}\n   next_high_tide: {}\n   next_low_tide: {}\n   current_tide_level: {} - {}"
+        logger.debug("providing tide state: \n   now: {}\n   previous_tide: {}\n   next_tide: {}\n   next_high_tide: {}\n   next_low_tide: {}\n   current_tide_level: {} - {}"
                     .format(
                         datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
                         ts.get_previous_tide().get_date_time_str(),

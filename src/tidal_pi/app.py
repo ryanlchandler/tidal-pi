@@ -12,6 +12,8 @@ import logging
 import sys
 import pytest
 
+logger = logging.getLogger(__name__)
+
 
 def start():
     if(RUN_TESTS.lower() == "true"):
@@ -23,13 +25,13 @@ def start():
 class TidalPi():
 
     def run_tests(self):
-        logging.info("running tests...")
+        logger.info("running tests...")
         pytest.main(["-x", "tests"])
-        logging.info("tests finished")
+        logger.info("tests finished")
 
     def run(self):
         self._configure_logging()
-        logging.info("TidalPi starting")
+        logger.info("TidalPi starting")
 
         # weather
         tide_chart = TideChart()
@@ -49,7 +51,7 @@ class TidalPi():
         threads.append(JobRunner("high tide clock", high_tide_clock_job, 1).start())
         threads.append(JobRunner("low tide clock", low_tide_clock_job, 1).start())
 
-        logging.info("TidalPi running")
+        logger.info("TidalPi running")
         for thread in threads:
             thread.join()
 

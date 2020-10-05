@@ -41,18 +41,18 @@ class TideState():
         minutes_in_to_tide = minutes_between - minutes_before
         percent_in_to_tide = (minutes_in_to_tide / minutes_between) * 100
 
-        logging.debug("minutes between tides: {}".format(minutes_between))
-        logging.debug("minutes before tide:   {}".format(minutes_before))
-        logging.debug("minutes in to tide:    {}".format(minutes_in_to_tide))
-        logging.debug("percent in to tide:    {}".format(percent_in_to_tide))
-        logging.debug("next tide type:        {}".format(next_tide.get_type()))
+        logger.debug("minutes between tides: {}".format(minutes_between))
+        logger.debug("minutes before tide:   {}".format(minutes_before))
+        logger.debug("minutes in to tide:    {}".format(minutes_in_to_tide))
+        logger.debug("percent in to tide:    {}".format(percent_in_to_tide))
+        logger.debug("next tide type:        {}".format(next_tide.get_type()))
 
         if (next_tide.get_type() == "L"):
             percent_of_high = 100 - percent_in_to_tide
         else:
             percent_of_high = percent_in_to_tide
 
-        logging.debug("percent of high tide:  {}".format(percent_of_high))
+        logger.debug("percent of high tide:  {}".format(percent_of_high))
         return round(percent_of_high, 2)
 
     def _get_minutes_between_tides(tide1, tide2):
