@@ -4,6 +4,7 @@ from tidal_pi.light_strip.tide_level_light_config import *
 import logging
 import sys
 import time
+logger = logging.getLogger(__name__)
 
 class TideLevelLightStrip():
 
@@ -39,16 +40,16 @@ class TideLevelLightStrip():
         ]        
 
     def render(self, tide_state):
-        logging.debug("=== rendering curent tide level ===\n{}\n==========================".format(tide_state.get_current_tide_level().to_string()))
+        logger.debug("=== rendering curent tide level ===\n{}\n==========================".format(tide_state.get_current_tide_level().to_string()))
         if (tide_state.get_current_tide_level().get_tide_type() == "H"):
             self._render_tide_coming_in(tide_state)
         else:
             self._render_tide_going_out(tide_state)
 
     def _render_tide_coming_in(self, tide_state):
-        logging.debug("rendering in coming tide")
+        logger.debug("rendering in coming tide")
         current_level = tide_state.get_current_tide_level().find_level(self.high_tide_levels)
-        logging.info("current tide level: {} - {}".format(current_level.get_tide_type(), current_level.get_name()))
+        logger.info("current tide level: {} - {}".format(current_level.get_tide_type(), current_level.get_name()))
         self._render_light_strip(
             HIGH_TIDE_LEVEL_LIGHTS_ON.get(current_level.get_percent_of_high_tide()),
             HIGH_TIDE_LEVEL_LIGHTS_FLASHING.get(current_level.get_percent_of_high_tide()),
@@ -56,9 +57,9 @@ class TideLevelLightStrip():
         )
 
     def _render_tide_going_out(self, tide_state):
-        logging.debug("rendering out going tide")
+        logger.debug("rendering out going tide")
         current_level = tide_state.get_current_tide_level().find_level(self.low_tide_levels)
-        logging.info("current tide level: {} - {}".format(current_level.get_tide_type(), current_level.get_name()))
+        logger.info("current tide level: {} - {}".format(current_level.get_tide_type(), current_level.get_name()))
         self._render_light_strip(
             LOW_TIDE_LEVEL_LIGHTS_ON.get(current_level.get_percent_of_high_tide()),
             LOW_TIDE_LEVEL_LIGHTS_FLASHING.get(current_level.get_percent_of_high_tide()),
@@ -86,26 +87,26 @@ class TideLevelLightStrip():
         g = color.get_g(brightness)
         b = color.get_b(brightness)
         try:
-            logging.debug("turning on light {} - ({},{},{})".format(light_idx, r, g, b))
+            logger.debug("turning on light {} - ({},{},{})".format(light_idx, r, g, b))
             self.light_strip.set_pixel_color(light_idx, r, g, b)
         except:
-            logging.error("could not turn on light {}".format(light_idx), sys.exc_info()[0])
+            logger.error("could not turn on light {}".format(light_idx), sys.exc_info()[0])
 
     def _turn_off_light(self, light_idx):
         r = OFF_COLOR.get_r()
         g = OFF_COLOR.get_g()
         b = OFF_COLOR.get_b()
         try:
-            logging.debug("turning off light {} - ({},{},{})".format(light_idx, r, g, b))
+            logger.debug("turning off light {} - ({},{},{})".format(light_idx, r, g, b))
             self.light_strip.set_pixel_color(light_idx, r, g, b)
         except:
-            logging.error("could not turn off light {}".format(light_idx), sys.exc_info()[0])
+            logger.error("could not turn off light {}".format(light_idx), sys.exc_info()[0])
 
     def _update_strip(self):
         try:
             self.light_strip.show()
         except:
-            logging.error("could not show lights", sys.exc_info()[0])
+            logger.error("could not show lights", sys.exc_info()[0])
 
     def _turn_on_lights(self, light_idxs, color, birghtness):
         for light_idx in light_idxs:
