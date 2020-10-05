@@ -18,9 +18,9 @@ class TideLevel:
     def has_met(self, compare_to_tide_level):
         if self.get_tide_type() == compare_to_tide_level.get_tide_type():
             if self.get_tide_type() == "H":
-                return compare_to_tide_level.get_percent_of_high_tide() >= self.get_percent_of_high_tide()
+                return self.get_percent_of_high_tide() >= compare_to_tide_level.get_percent_of_high_tide()
             else:
-                return compare_to_tide_level.get_percent_of_high_tide() < self.get_percent_of_high_tide()
+                return self.get_percent_of_high_tide() <= compare_to_tide_level.get_percent_of_high_tide()
         else:
             return False
 
