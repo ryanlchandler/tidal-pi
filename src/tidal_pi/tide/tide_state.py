@@ -1,5 +1,6 @@
 import datetime
 from tidal_pi.tide.tide_level import TideLevel
+import logging
 
 class TideState():
 
@@ -37,10 +38,21 @@ class TideState():
     def _get_current_percent_of_high_tide(next_tide, prev_tide, predicate_date_time=None):
         minutes_between = TideState._get_minutes_between_tides(next_tide, prev_tide)
         minutes_before = TideState._get_minutes_before_tide(next_tide, predicate_date_time)
+        minutes_in_to_tide = minutes_between - minutes_before
+        percent_in_to_tide = (minutes_in_to_tide / minutes_between) * 100
 
-        percent_of_high = ((minutes_between - minutes_before) / minutes_between) * 100
+        logging.debug("minutes between tides: {}".format(minutes_between))
+        logging.debug("minutes before tide:   {}".format(minutes_before))
+        logging.debug("minutes in to tide:    {}".format(minutes_in_to_tide))
+        logging.debug("percent in to tide:    {}".format(percent_in_to_tide))
+        logging.debug("next tide type:        {}".format(next_tide.get_type()))
+
         if (next_tide.get_type() == "L"):
-            percent_of_high = 100 - percent_of_high
+            percent_of_high = 100 - percent_in_to_tide
+        else:
+            percent_of_high = percent_in_to_tide
+
+        logging.debug("percent of high tide:  {}".format(percent_of_high))
         return round(percent_of_high, 2)
 
     def _get_minutes_between_tides(tide1, tide2):
