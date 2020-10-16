@@ -10,7 +10,10 @@ class LedClock:
         self.name = name
         self.address = address
         try:
+            logger.info("creating {} at address {}".format(name, address))
+            logger.info("running i2cdetect -y 1")
             logger.info("i2cdetect -y 1\n{}".format(i2cdetect()))
+            logger.info("finished i2cdetect -y 1")
             self.clock = SevenSegment.SevenSegment(self.address)
             self.clock.begin()
             logger.debug("new clock named {} for address {}".format(name, address))
