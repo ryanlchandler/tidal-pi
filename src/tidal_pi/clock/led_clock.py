@@ -1,6 +1,7 @@
 import sys
 import logging
 from Adafruit_LED_Backpack import SevenSegment
+from tidal_pi.util.i2c import i2cdetect
 
 logger = logging.getLogger(__name__)
 
@@ -9,6 +10,7 @@ class LedClock:
         self.name = name
         self.address = address
         try:
+            logger.info("i2cdetect -y 1\n{}".format(i2cdetect()))
             self.clock = SevenSegment.SevenSegment(self.address)
             self.clock.begin()
             logger.debug("new clock named {} for address {}".format(name, address))
