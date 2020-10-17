@@ -35,12 +35,12 @@ class LedClock:
                 logger.info("set_digit(1, {})".format(hour % 10))
                 logger.info("set_digit(2, {})".format(int(minute / 10)))
                 logger.info("set_digit(3, {})".format(minute % 10))
-                self.clock.set_digit(3, int(hour / 10))  # Tens
-                self.clock.set_digit(2, hour % 10)  # Ones
+                self.clock.set_digit(0, int(hour / 10))  # Tens
+                self.clock.set_digit(1, hour % 10)  # Ones
 
                 # Set minutes
-                self.clock.set_digit(1, int(minute / 10))  # Tens
-                self.clock.set_digit(0, minute % 10)  # Ones
+                self.clock.set_digit(2, int(minute / 10))  # Tens
+                self.clock.set_digit(3, minute % 10)  # Ones
 
                 self.clock.set_colon(1)  # colon
 
