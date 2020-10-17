@@ -43,13 +43,13 @@ class TidalPi():
 
         # clocks
         high_tide_clock_job = HighTideClockJob(tide_state_provider)
-        low_tide_clock_job = LowTideClockJob(tide_state_provider)
+        # low_tide_clock_job = LowTideClockJob(tide_state_provider)
 
         threads = []
         threads.append(JobRunner("weather update job", weather_update_job, 60 * 60).start())
         threads.append(JobRunner("light strip job", light_strip_job, 1).start())
         threads.append(JobRunner("high tide clock", high_tide_clock_job, 1).start())
-        threads.append(JobRunner("low tide clock", low_tide_clock_job, 1).start())
+        # threads.append(JobRunner("low tide clock", low_tide_clock_job, 1).start())
 
         logger.info("TidalPi running")
         for thread in threads:
