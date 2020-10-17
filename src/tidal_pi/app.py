@@ -1,6 +1,5 @@
 from tidal_pi.tide.tide_state_provider import TideStateProvider
-from tidal_pi.clock.high_tide_clock_job import HighTideClockJob
-from tidal_pi.clock.low_tide_clock_job import LowTideClockJob
+from tidal_pi.clock.clock_job import ClockJob
 from tidal_pi.weather.weather_update_job import WeatherUpdateJob
 from tidal_pi.light_strip.light_strip_job import LightStripJob
 from tidal_pi.tide.tide_chart import TideChart
@@ -42,14 +41,12 @@ class TidalPi():
         light_strip_job = LightStripJob(tide_state_provider, TideLevelLightStrip())
 
         # clocks
-        high_tide_clock_job = HighTideClockJob(tide_state_provider)
-        low_tide_clock_job = LowTideClockJob(tide_state_provider)
+        clock_job = ClockJob(tide_state_provider)
 
         threads = []
         threads.append(JobRunner("weather update job", weather_update_job, 60 * 60).start())
         threads.append(JobRunner("light strip job", light_strip_job, 1).start())
-        threads.append(JobRunner("high tide clock", high_tide_clock_job, 1).start())
-        threads.append(JobRunner("low tide clock", low_tide_clock_job, 1).start())
+        threads.append(JobRunner("tide clock", clock_job, 1).start())
 
         logger.info("TidalPi running")
         for thread in threads:
