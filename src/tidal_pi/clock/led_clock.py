@@ -24,17 +24,17 @@ class LedClock:
     def set_clock(self, tide):
         if self.clock != None:
             try:
-                logger.debug("set clock {} to {}".format(self.name, tide.get_date_time()))
+                logger.debug("set clock {} at {} to {}".format(self.name, self.address, tide.get_date_time()))
                 tideTime = tide.get_date_time()
                 hour = tideTime.hour
                 minute = tideTime.minute
 
                 self.clock.clear()
                 # Set hours
-                logger.info("set_digit(0, {})".format(int(hour / 10)))
-                logger.info("set_digit(1, {})".format(hour % 10))
-                logger.info("set_digit(2, {})".format(int(minute / 10)))
-                logger.info("set_digit(3, {})".format(minute % 10))
+                logger.info("{} set_digit(0, {})".format(self.name, int(hour / 10)))
+                logger.info("{} set_digit(1, {})".format(self.name, hour % 10))
+                logger.info("{} set_digit(2, {})".format(self.name, int(minute / 10)))
+                logger.info("{} set_digit(3, {})".format(self.name, minute % 10))
                 self.clock.set_digit(0, int(hour / 10))  # Tens
                 self.clock.set_digit(1, hour % 10)  # Ones
 
