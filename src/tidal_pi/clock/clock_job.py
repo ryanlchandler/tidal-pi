@@ -7,7 +7,7 @@ class ClockJob:
 
     def __init__(self, tide_state_provider):
         self.highTideClock = clock_factory.create_clock("HighTideClock", config.HIGH_TIDE_CLOCK_ADDRESS)
-        self.lowTideClock = clock_factory.create_clock("LowTideClock", config.LOW_TIDE_CLOCK_ADDRESS)
+        # self.lowTideClock = clock_factory.create_clock("LowTideClock", config.LOW_TIDE_CLOCK_ADDRESS)
         self.tide_state_provider = tide_state_provider
 
     def run(self):
@@ -16,4 +16,4 @@ class ClockJob:
 
             if tide_state != None:
                 self.highTideClock.set_clock(tide_state.get_next_high_tide())
-                self.lowTideClock.set_clock(tide_state.get_next_low_tide())
+                # self.lowTideClock.set_clock(tide_state.get_next_low_tide())
