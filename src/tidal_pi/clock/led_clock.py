@@ -9,6 +9,7 @@ class LedClock:
     def __init__(self, name, address):
         self.name = name
         self.address = address
+        self.clock = None
 
     def set_clock(self, tide):
         clock = self._get_clock()
