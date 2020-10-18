@@ -2,7 +2,7 @@ from tidal_pi.light_strip.light_color import LightColor
 
 OFF_COLOR = LightColor(0, 0, 0)
 IN_TIDE_COLOR = LightColor(0, 0, 255)
-OUT_TIDE_COLOR = LightColor(255, 0, 0)
+OUT_TIDE_COLOR = LightColor(0, 255, 0)
 
 LIGHT_0_IDX = 0 # low
 LIGHT_1_IDX = 1 # 25
