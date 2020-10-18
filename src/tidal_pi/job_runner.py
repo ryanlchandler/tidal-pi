@@ -26,7 +26,7 @@ class JobRunner():
             try:
                 self.job.run()
             except:
-                logger.error("error running job {}".format(self.name), sys.exc_info()[0])
+                logger.error("error running job {}".format(self.name), exc_info=True)
 
             logger.info("finished running {}".format(self.name))
             logger.info("{} sleeping for {}".format(self.name, self.sleep_seconds))

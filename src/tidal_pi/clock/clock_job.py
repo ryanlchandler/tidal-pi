@@ -11,9 +11,8 @@ class ClockJob:
         self.tide_state_provider = tide_state_provider
 
     def run(self):
-        while (True):
-            tide_state = self.tide_state_provider.get_tide_state()
+        tide_state = self.tide_state_provider.get_tide_state()
 
-            if tide_state != None:
-                self.highTideClock.set_clock(tide_state.get_next_high_tide())
-                self.lowTideClock.set_clock(tide_state.get_next_low_tide())
+        if tide_state != None:
+            self.highTideClock.set_clock(tide_state.get_next_high_tide())
+            self.lowTideClock.set_clock(tide_state.get_next_low_tide())

@@ -90,7 +90,7 @@ class TideLevelLightStrip():
             logger.debug("turning on light {} - ({},{},{})".format(light_idx, r, g, b))
             self.light_strip.set_pixel_color(light_idx, r, g, b)
         except:
-            logger.error("could not turn on light {}".format(light_idx), sys.exc_info()[0])
+            logger.error("could not turn on light {}".format(light_idx), exc_info=True)
 
     def _turn_off_light(self, light_idx):
         r = OFF_COLOR.get_r()
@@ -100,13 +100,13 @@ class TideLevelLightStrip():
             logger.debug("turning off light {} - ({},{},{})".format(light_idx, r, g, b))
             self.light_strip.set_pixel_color(light_idx, r, g, b)
         except:
-            logger.error("could not turn off light {}".format(light_idx), sys.exc_info()[0])
+            logger.error("could not turn off light {}".format(light_idx), exc_info=True)
 
     def _update_strip(self):
         try:
             self.light_strip.show()
         except:
-            logger.error("could not show lights", sys.exc_info()[0])
+            logger.error("could not show lights", exc_info=True)
 
     def _turn_on_lights(self, light_idxs, color, birghtness):
         for light_idx in light_idxs:

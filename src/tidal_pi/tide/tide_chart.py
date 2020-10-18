@@ -56,7 +56,7 @@ class TideChart():
                 tide_chart_file.write(tides_json)
                 logger.info("wrote {} tides to {}".format(len(tides), config.TIDE_CHART_FILE))
         except:
-            logger.error("could not write tide forecast {}".format(config.TIDE_CHART_FILE), sys.exc_info()[0])
+            logger.error("could not write tide forecast {}".format(config.TIDE_CHART_FILE), exc_info=True)
 
     def _read_tide_chart(self):
         try:
@@ -69,7 +69,7 @@ class TideChart():
                         tides[index].append(Tide(tide["date"], tide["time"], tide["type"], tide["height"]))
                 return tides
         except:
-            logger.error("could not read tide forecast {}".format(config.TIDE_CHART_FILE), sys.exc_info()[0])
+            logger.error("could not read tide forecast {}".format(config.TIDE_CHART_FILE), exc_info=True)
             return {}
 
     def _sort_tides(self, tides):

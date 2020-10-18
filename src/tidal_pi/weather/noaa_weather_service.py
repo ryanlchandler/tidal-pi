@@ -35,7 +35,7 @@ class NoaaWeatherService():
             logger.debug("\n---response - start---\n{}\n---response - end---".format(r.text))
             return json.loads(r.text)["predictions"]
         except:
-            logger.error("could not fetch weather", sys.exc_info()[0])
+            logger.error("could not fetch weather", exc_info=True)
 
 
 

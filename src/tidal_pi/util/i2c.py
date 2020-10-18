@@ -12,7 +12,7 @@ def i2cdetect():
         else:
             return result.stderr.decode("utf-8")
     except:
-        logger.error("error running i2cdetect", sys.exc_info()[0])
+        logger.error("error running i2cdetect", exc_info=True)
         return "error running i2cdetect"
 
 

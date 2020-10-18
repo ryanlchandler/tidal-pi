@@ -37,7 +37,7 @@ def updateTideForecasts(begin_date, end_date):
             _writeForecast(tides)
             done = True
         except:
-            print("could not update forecast", sys.exc_info()[0])
+            print("could not update forecast", exc_info=True)
             time.sleep(5)
 
 def _getTideForecast(begin_date, end_date):
@@ -63,7 +63,7 @@ def getForecast(dayOfWeek=None):
                 return forecast[str(dayOfWeek)]
             return forecast
     except:
-        print("could not get forecast", sys.exc_info()[0])
+        print("could not get forecast", exc_info=True)
     return None
 
 def getTodaysForecast():
