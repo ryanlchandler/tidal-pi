@@ -1,4 +1,6 @@
 from rpi_ws281x import *
+import logging
+logger = logging.getLogger(__name__)
 
 LED_COUNT   = 48       # Number of LED pixels.
 LED_PIN     = 18      # GPIO pin connected to the pixels (must support PWM!).
@@ -18,6 +20,7 @@ class NeoPixelStrip():
         self.strip.begin()
 
     def set_pixel_color(self, lightIdx, r, g, b):
+        logger.info("strip.set_pixel_color({}, r({}), g({}), b({}))".format(lightIdx, r, g, b))
         self.strip.setPixelColor(lightIdx, Color(int(r), int(g), int(b)))
 
     def show(self):
